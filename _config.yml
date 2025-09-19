@@ -6,7 +6,7 @@ author: Yue Zhang
 logo: bascat-logo.jpeg
 copyright: "2025, NFDI" 
 # exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints", R_Lerneinheit.ipynb, 3.ipynb, conda, venv, README.md, LICENSE.md, .github, Checkliste_Finalisierung.md, "Markdown/md_*.md"]
-exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints", conda, venv, README.md, LICENSE.md, .github, Checkliste_Finalisierung.md, "Markdown/md_*.md"]
+exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints", conda, venv, README.md, LICENSE.md, .github, Checkliste_Finalisierung.md, "Markdown/md_*.md", "Markdown/*.html"]
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
