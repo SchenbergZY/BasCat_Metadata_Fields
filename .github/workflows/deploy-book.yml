@@ -1,8 +1,12 @@
 name: Deploy Book
 
 on:
-  push:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Update Metadata"]
+    types:
+      - completed
+    branches:
+      - main
 
 jobs:
   deploy-book:
