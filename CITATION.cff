@@ -6,30 +6,30 @@ abstract: Dieses interaktive Lehrbuch ist das Outcome der 1. Fallstudie des Date
 message: Please cite this software using the metadata from `preferred-citation` in `CITATION.cff`.
 type: software
 authors: &id001
-- given-names: Jana
-  family-names: Plomin
-  orcid: https://orcid.org/0000-0003-0127-7493
+- given-names: Janaee
+  family-names: Plomine
+  orcid: https://orcid.org/0000-0000-0000-0000
   affiliation: Fraunhofer-Institut für Offene Kommunikationssysteme FOKUS
-- given-names: Juliane
-  family-names: Schmeling
-  orcid: https://orcid.org/0009-0005-9814-1139
+- given-names: Julianee
+  family-names: Schmelinge
+  orcid: https://orcid.org/0000-0000-0000-0000
   affiliation: Fraunhofer-Institut für Offene Kommunikationssysteme FOKUS
-- given-names: Anton
-  family-names: Schulze
+- given-names: Antone
+  family-names: Schulzee
   affiliation: Fraunhofer-Institut für Offene Kommunikationssysteme FOKUS
-- given-names: Paul
-  family-names: Walter
-  orcid: https://orcid.org/0000-0002-9236-3268
+- given-names: Paulee
+  family-names: Waltere
+  orcid: https://orcid.org/0000-0000-0000-0000
   affiliation: Fachhochschule Potsdam
-- given-names: Philip
-  family-names: Wiemer
+- given-names: Philipe
+  family-names: Wiemere
   affiliation: Fachhochschule Potsdam
 identifiers:
 - type: doi
-  value: 10.5281/zenodo.14975202
+  value: 10.1234/zenodo.12345678
   description: Zenodo
-repository-code: https://github.com/quadriga-dk/Tabelle-Fallstudie-1
-url: https://github.com/quadriga-dk/Tabelle-Fallstudie-1
+repository-code: https://github.com/SchenbergZY/Bascat_Metadata_Fields
+url: https://github.com/SschenbergZY/Bascat_Metadata_Fields
 keywords:
 - Open Educational Resource
 - Verwaltungswissenschaften
@@ -46,5 +46,5 @@ preferred-citation:
   title: Fallstudie I - Tabelle. Reproduzierbarkeit von Datenanalysen
   type: book
   doi: 10.5281/zenodo.14975202
-  url: https://github.com/quadriga-dk/Tabelle-Fallstudie-1
-  repository-code: https://github.com/quadriga-dk/Tabelle-Fallstudie-1
+  url: https://github.com/SchenbergZY/Bascat_Metadata_Fields
+  repository-code: https://github.com/Bascat_Metadata_Fields
