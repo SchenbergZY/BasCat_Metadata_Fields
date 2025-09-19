@@ -69,9 +69,9 @@ sphinx:
     bibtex_reference_style: author_year
     html_show_copyright: false
     html_static_path: ['_static']
-    html_css_files:
-      - carousel.css
-    html_js_files:
-      - carousel.js
+    #html_css_files:
+    #  - carousel.css
+    #html_js_files:
+    #  - carousel.js
     # optional – keeps Runestone quiet about a missing back-end server
     # runestone_server_url: ""      # empty = no grade reporting
