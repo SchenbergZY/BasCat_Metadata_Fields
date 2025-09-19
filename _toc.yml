@@ -1,0 +1,9 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: Markdown/0_Intro
+options: 
+  numbered: 3
+chapters:
+  - file: Markdown/9_Epilog
