@@ -10,498 +10,808 @@ kernelspec:
   name: python3
 ---
 
-# 🏆Selbsttest: Wissen und Praxis
-
-````{admonition} Hinweis
-:class: hinweis
-Diese Übungsaufgaben dienen Ihrer Selbsteinschätzung und helfen Ihnen, das im Kapitel Gelernte zu reflektieren.
-
-Sie können die Fragen in beliebiger Reihenfolge bearbeiten und die Beantwortung auch mehrfach versuchen. 
-
-**So funktioniert es:**
-- Wählen Sie bei jeder Frage die Antwort(en) aus, die Sie für richtig halten
-- Lesen Sie das Feedback zu den einzelnen Antwortoptionen sorgfältig durch
-- Die Erklärungen helfen Ihnen, Ihr Verständnis zu vertiefen – auch bei korrekten Antworten 
-
-Es erfolgt keine Bewertung oder Speicherung Ihrer Ergebnisse. Nutzen Sie dieses Assessment, um Wissenslücken zu identifizieren und gegebenenfalls die entsprechenden Abschnitte des Kapitels nochmals zu bearbeiten. 
-
-**Geschätzte Zeit**: XX
-
-Viel Erfolg!
-````
-
-### Aufgabe 0.2 Together task
+# 
 
 ```{raw} html
-<!-- ░░░  ONE-OFF STYLES  ░░░ ------------------------------------------->
-<style>
-.dnd-exercise{display:flex;flex-direction:column;align-items:flex-start;gap:1.2rem;margin-bottom:2rem}
-.dnd-item{background:#eef2ff;border:1px solid #4f46e5;border-radius:.5rem;
-          padding:.35rem .75rem;margin:.25rem;font-weight:500;cursor:move;
-          box-shadow:0 1px 2px rgba(0,0,0,.06);transition:transform .15s,box-shadow .15s}
-.dnd-item:active{transform:scale(.95);box-shadow:0 4px 6px rgba(0,0,0,.15)}
-.dnd-box{min-height:3rem;min-width:8rem;padding:.5rem .6rem;border:2px dashed #9ca3af;
-         border-radius:.75rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;
-         transition:border-color .2s,background .2s}
-.dnd-box.dragover{background:#fefce8;border-color:#4f46e5}
-.dnd-box.ok{background:#f0fdf4;border-color:#16a34a}
-.dnd-btn{background:#4f46e5;color:#fff;border:0;border-radius:.5rem;
-         padding:.45rem 1.1rem;margin-right:.6rem;font-weight:500;cursor:pointer;
-         transition:background .2s}
-.dnd-btn:hover{background:#4338ca}
-
-/* ── NEW: make any .dnd-box.vertical a column ──────────────────────── */
-/*   Make any choices container that's marked .vertical stack      */
-/*   its items top–to–bottom AND stretch each chip the full width  */
-.dnd-box.vertical          { flex-direction: column; gap: .6rem; }
-.dnd-box.vertical .dnd-item{
-  display: block;          /* forces line break after every chip  */
-  width: 100%;             /* chip fills the entire container row */
-}
-</style>
-
-<!-- ░░░  UNIVERSAL SCRIPT (works for every .dnd-exercise)  ░░░ --------->
-<script>
-
-/* ============  UNIVERSAL SETUP FUNCTION (runs once)  ============== */
-
-function setupAllDND(){                       // call exactly once, after page loads
-
-  document.querySelectorAll('.dnd-exercise').forEach(ex=>{
-
-      const choices=ex.querySelector('.choices');
-
-      const target =ex.querySelector('.target');
-
-      const answer=ex.dataset.answer.split(',');
-
-      const ordered=(ex.dataset.order==='true');
-
-      let drag=null;
-
-
-
-      ex.querySelectorAll('.dnd-item').forEach(el=>
-
-        el.addEventListener('dragstart',()=>drag=el)
-
-      );
-
-
-
-      [choices,target].forEach(box=>{
-
-        box.addEventListener('dragover',e=>{e.preventDefault();box.classList.add('dragover')});
-
-        box.addEventListener('dragleave',()=>box.classList.remove('dragover'));
-
-        box.addEventListener('drop',e=>{
-
-            e.preventDefault();box.classList.remove('dragover');box.appendChild(drag);
-
-        });
-
-      });
-
-
-
-      ex.querySelector('.check').addEventListener('click',()=>{
-
-        const picked=[...target.querySelectorAll('.dnd-item')].map(x=>x.dataset.key);
-
-        const ok= ordered
-
-                ? picked.join()===answer.join()
-
-                : picked.sort().join()===answer.slice().sort().join();
-
-        if(ok){alert('✅ Correct!');target.classList.add('ok');}
-
-        else  {alert('❌ Try again');
-            target.classList.remove('ok');
-            /* NEW: send everything back to the choices box */
-            target.querySelectorAll('.dnd-item')
-                  .forEach(el => choices.appendChild(el));
-        }
-
-      });
-
-
-
-      ex.querySelector('.reset').addEventListener('click',()=>{
-
-        target.querySelectorAll('.dnd-item').forEach(el=>choices.appendChild(el));
-
-        target.classList.remove('ok');
-
-      });
-
-  });
-
-}
-
-/* Wait until the DOM is fully parsed */
-document.addEventListener('DOMContentLoaded',setupAllDND);
-</script>
-```
-
-```{raw} html
-<div class="dnd-exercise" data-answer="A,C" data-order="false">
-
-  <!--  ▼  add .vertical next to .choices  -->
-  <div class="dnd-box choices vertical">
-    <span class="dnd-item" draggable="true" data-key="A">
-      Statement A – a fairly long chunk of text that should wrap nicely.
-    </span>
-    <span class="dnd-item" draggable="true" data-key="B">
-      Statement B – another verbose option that looks better on its own line.
-    </span>
-    <span class="dnd-item" draggable="true" data-key="C">
-      Statement C – etc.
-    </span>
-  </div>
-
-  <div class="dnd-box target"></div>
-
-  <div>
-    <button class="dnd-btn check">Check me</button>
-    <button class="dnd-btn reset">Reset</button>
-  </div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>Metadata Reference Model</title>
+  <style>
+    body { font-family: Arial; line-height: 1.6; margin: 20px; }
+    details summary { font-weight: bold; cursor: pointer; margin-top: 10px; }
+    .nested { margin-left: 20px; }
+    .subnested { margin-left: 40px; }
+    .indented-section { margin-left: 20px; }
+  </style>
+  <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+</head>
+<body>
+<h1>Metadata Reference Model</h1>
+<details><summary>cat core</summary>
+<p>The CatCore describes the minimum information which must be reported with research data concerning the field of catalysis. This guideline should help to handle and standarise data in this versatile research field based on the FAIR principle (F-indable, A-ccessible, I-nteroperable, R-eusable). This should help to ensure that research results are supported by high quality data and to simplify quering the shared data for a future of data-driven material discovery. The guideline is based on the terminology of Voc4Cat. The inner CatCore describes the most fundamental metadata which is mandatory to describe the research on the most general level with the goal of facilitating a categorization of the research data and help researchers to make their data findable. The expanded CatCore contains the data classes 'Synthesis', 'Reaction', 'Characterization' and 'Simulation'. It is important to note that 'Synthesis' and 'Reaction' are the two data classes which are fundamental for catalysis and cannot be transferred to other fields, whereas the characterization methods and simulations are well-known in other chemistry fields.</p>
+<div class='indented-section'>
+<details><summary>Mandatory</summary>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000196" target="_blank">catalysis research field</a></summary>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007001" target="_blank">heterogeneous catalysis</a></div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000294" target="_blank">homogeneous catalysis</a></div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000204" target="_blank">biocatalysis</a></div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000216" target="_blank">electrocatalysis</a></div>
+<div class="nested">hybrid catalysis</div>
+<div class="nested">other catalysis research field</div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0007010" target="_blank">Reaction type</a></summary>
+</details>
+</details>
+<details><summary>Recommended</summary>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0007006" target="_blank">active site</a></summary>
+</details>
+</details>
+<details><summary>Optional</summary>
+<details class="nested"><summary>Identifier</summary>
+</details>
+</details>
 </div>
-```
-```{raw} html
-<div class="dnd-exercise" data-answer="A,C" data-order="true">
-
-  <!--  ▼  add .vertical next to .choices  -->
-  <div class="dnd-box choices vertical">
-    <span class="dnd-item" draggable="true" data-key="A">
-      Statement A – a fairly long chunk of text that should wrap nicely.
-    </span>
-    <span class="dnd-item" draggable="true" data-key="B">
-      Statement B – another verbose option that looks better on its own line.
-    </span>
-    <span class="dnd-item" draggable="true" data-key="C">
-      Statement C – etc.
-    </span>
-  </div>
-
-  <div class="dnd-box target"></div>
-
-  <div>
-    <button class="dnd-btn check">Check me</button>
-    <button class="dnd-btn reset">Reset</button>
-  </div>
+<details>
+    <summary><strong>Metadata Hierarchy Chart</strong></summary>
+    <div>                            <div id="5f12fcd5-de0c-4d6e-a71e-448ceb64cb12" class="plotly-graph-div" style="height:700px; width:700px;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("5f12fcd5-de0c-4d6e-a71e-448ceb64cb12")) {                    Plotly.newPlot(                        "5f12fcd5-de0c-4d6e-a71e-448ceb64cb12",                        [{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003elabel=%{label}\u003cbr\u003eparent=%{parent}\u003cbr\u003eid=%{id}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["cat core","catalysis research field","heterogeneous catalysis","homogeneous catalysis","biocatalysis","electrocatalysis","hybrid catalysis","other catalysis research field","Reaction type","active site","Identifier"],"ids":["cat core","cat core|catalysis research field","cat core|heterogeneous catalysis","cat core|homogeneous catalysis","cat core|biocatalysis","cat core|electrocatalysis","cat core|hybrid catalysis","cat core|other catalysis research field","cat core|Reaction type","cat core|active site","cat core|Identifier"],"labels":["cat core","catalysis research field","heterogeneous catalysis","homogeneous catalysis","biocatalysis","electrocatalysis","hybrid catalysis","other catalysis research field","Reaction type","active site","Identifier"],"name":"","parents":["","cat core","cat core|catalysis research field","cat core|catalysis research field","cat core|catalysis research field","cat core|catalysis research field","cat core|catalysis research field","cat core|catalysis research field","cat core","cat core","cat core"],"type":"sunburst","marker":{"colors":["#cccccc","#e66101","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#e66101","#fdb863","#fddbc7"]}}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"legend":{"tracegroupgap":0},"title":{"text":"Cat Core Metadata Hierarchy"},"margin":{"t":50,"l":10,"r":10,"b":10},"width":700,"height":700},                        {"responsive": true}                    )                };                            </script>        </div>
+    </details>
+</details>
+<details><summary>synthesis</summary>
+<p>The data class 'Synthesis' describes the minimum information which should be reported with research data concerning the field of catalyst synthesis. Based on the various catalysis research fields, this data class is kept general to allow relevant entries of the various research fields. To ensure a reasonable description of the synthesised catalyst, also parameters which need to be determined by analytical methods (such as BET or NMR) can be entered.</p>
+<div class='indented-section'>
+<details><summary>Mandatory</summary>
+<details class="nested"><summary>nominal composition</summary>
+</details>
+<details class="nested"><summary>catalyst measured properties (e.g. BET, sieve fraction, molar ratio)</summary>
+</details>
+<details class="nested"><summary><a href="future" target="_blank">precursor</a></summary>
+<div class="nested"><a href="?" target="_blank">precursor quantity</a></div>
+</details>
+<details class="nested"><summary><a href="https://nfdi4cat.github.io/voc4cat/latest/voc4cat/index.html#https://w3id.org/nfdi4cat/voc4cat_0007016" target="_blank">preparation method</a></summary>
+<details class="nested"><summary><a href="future" target="_blank">impregnation</a></summary>
+<div class="subnested">type of impregnation</div>
+<div class="subnested">impregnation duration</div>
+<div class="subnested">impregnation temperature</div>
+<div class="subnested">drying device</div>
+<div class="subnested">drying temperature</div>
+<div class="subnested">drying time</div>
+<div class="subnested">drying atmosphere</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000057" target="_blank">calcination initial temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000058" target="_blank">calcination final temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000060" target="_blank">calcination dwelling time</a></div>
+<div class="subnested">number of cycles</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000055" target="_blank">calcination gaseous environment</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000059" target="_blank">calcination heating rate</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000056" target="_blank">calcination gas flow rate</a></div>
+</details>
+<details class="nested"><summary><a href="future" target="_blank">co-precipitation</a></summary>
+<div class="subnested">precipitating agent</div>
+<div class="subnested">precipitating concentration</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000052" target="_blank">synthesis pH</a></div>
+<div class="subnested">mixing rate</div>
+<div class="subnested">mixing time</div>
+<div class="subnested"><a href="future" target="_blank">mixing temperature</a></div>
+<div class="subnested">drying device</div>
+<div class="subnested">drying temperature</div>
+<div class="subnested">drying time</div>
+<div class="subnested">drying atmosphere</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000057" target="_blank">calcination initial temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000058" target="_blank">calcination final temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000060" target="_blank">calcination dwelling time</a></div>
+<div class="subnested">number of cycles</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000055" target="_blank">calcination gaseous environment</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000059" target="_blank">calcination heating rate</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000056" target="_blank">calcination gas flow rate</a></div>
+<div class="subnested">order of addition</div>
+<div class="subnested"><a href="future" target="_blank">filtration</a></div>
+<div class="subnested"><a href="future" target="_blank">purification</a></div>
+<div class="subnested">aging temperature</div>
+<div class="subnested">aging time</div>
+</details>
+<details class="nested"><summary>sol-gel</summary>
+<div class="subnested">hydrolysis ratio</div>
+<div class="subnested">aging time</div>
+<div class="subnested"><a href="future" target="_blank">drying</a></div>
+<div class="subnested">surfactant template</div>
+</details>
+<details class="nested"><summary>solvothermal</summary>
+<div class="subnested">filing volume</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000051" target="_blank">synthesis temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000050" target="_blank">synthesis duration</a></div>
+<div class="subnested">vessel type</div>
+<div class="subnested"><a href=" https://w3id.org/nfdi4cat/voc4cat_0000187" target="_blank">equipment</a></div>
+<div class="subnested"><a href="future" target="_blank">stirring speed</a></div>
+<div class="subnested"><a href="future" target="_blank">stirrer type</a></div>
+<div class="subnested">cooling rate</div>
+</details>
+<details class="nested"><summary>plasma-assisted</summary>
+<div class="subnested">plasma type</div>
+<div class="subnested"><a href=" https://w3id.org/nfdi4cat/voc4cat_0000187" target="_blank">equipment</a></div>
+<div class="subnested"><a href="future" target="_blank">atmosphere</a></div>
+<div class="subnested">power input</div>
+<div class="subnested">exposure time</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000053" target="_blank">synthesis pressure</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000051" target="_blank">synthesis temperature</a></div>
+</details>
+<details class="nested"><summary>combustion synthesis</summary>
+<div class="subnested">fuel</div>
+<div class="subnested">oxidizer</div>
+<div class="subnested">fuel-to-oxidizer ratio</div>
+<div class="subnested">set temperature</div>
+<div class="subnested">post-treatment</div>
+<div class="subnested"><a href="future" target="_blank">atmosphere</a></div>
+<div class="subnested">vessel type</div>
+<div class="subnested"><a href=" https://w3id.org/nfdi4cat/voc4cat_0000187" target="_blank">equipment</a></div>
+</details>
+<details class="nested"><summary>atomic layer deposition</summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000024" target="_blank">substrate</a></div>
+<div class="subnested">pulse time</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000112" target="_blank">purging duration</a></div>
+<div class="subnested">number of cycles</div>
+<div class="subnested">deposition temperature</div>
+<div class="subnested">carrier gas</div>
+</details>
+<details class="nested"><summary><a href="future" target="_blank">deposition-precipitation</a></summary>
+<div class="subnested">precipitating agent</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000052" target="_blank">synthesis pH</a></div>
+<div class="subnested">deposition temperature</div>
+<div class="subnested">deposition time</div>
+<div class="subnested">mixing rate</div>
+<div class="subnested">mixing time</div>
+<div class="subnested">mixing temperature</div>
+<div class="subnested">drying device</div>
+<div class="subnested">drying temperature</div>
+<div class="subnested">drying time</div>
+<div class="subnested">drying atmosphere</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000057" target="_blank">calcination initial temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000058" target="_blank">calcination final temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000060" target="_blank">calcination dwelling time</a></div>
+<div class="subnested">number of cycles</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000055" target="_blank">calcination gaseous environment</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000059" target="_blank">calcination heating rate</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000056" target="_blank">calcination gas flow rate</a></div>
+<div class="subnested">order of addition</div>
+<div class="subnested">filtration</div>
+<div class="subnested">purification</div>
+<div class="subnested">aging temperature</div>
+<div class="subnested">aging time</div>
+</details>
+<details class="nested"><summary>microwave-assisted</summary>
+<div class="subnested"><a href=" https://w3id.org/nfdi4cat/voc4cat_0000187" target="_blank">equipment</a></div>
+<div class="subnested">power</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000050" target="_blank">synthesis duration</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000051" target="_blank">synthesis temperature</a></div>
+<div class="subnested">microwave frequency</div>
+<div class="subnested">vessel type</div>
+</details>
+<details class="nested"><summary>Sonochemical synthesis</summary>
+<div class="subnested"><a href="future" target="_blank">stirring duration</a></div>
+<div class="subnested">sonication power</div>
+<div class="subnested">sonication duration</div>
+<div class="subnested">temperature</div>
+<div class="subnested">drying device</div>
+<div class="subnested">drying temperature</div>
+<div class="subnested">drying time</div>
+<div class="subnested">drying atmosphere</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000057" target="_blank">calcination initial temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000058" target="_blank">calcination final temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000060" target="_blank">calcination dwelling time</a></div>
+<div class="subnested">number of cycles</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000055" target="_blank">calcination gaseous environment</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000059" target="_blank">calcination heating rate</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000056" target="_blank">calcination gas flow rate</a></div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0007031" target="_blank">Flame spray pyrolysis</a></summary>
+<div class="subnested">type of flame</div>
+<div class="subnested">flow rate</div>
+<div class="subnested">inlet system</div>
+<div class="subnested">flame ring</div>
+<div class="subnested">Dispersant</div>
+<div class="subnested">capillary pressure</div>
+<div class="subnested">fuel/dispersant ratio</div>
+<div class="subnested">filtration device</div>
+<div class="subnested">filter type</div>
+</details>
+<details class="nested"><summary>mechanochemical synthesis</summary>
+<div class="subnested"><a href=" https://w3id.org/nfdi4cat/voc4cat_0000187" target="_blank">equipment</a></div>
+<div class="subnested">Vessel volume</div>
+<div class="subnested">size and material</div>
+<div class="subnested"><a href="future" target="_blank">milling speed</a></div>
+<div class="subnested"><a href="future" target="_blank">milling duration</a></div>
+<div class="subnested"><a href=" https://w3id.org/nfdi4cat/voc4cat_0000051" target="_blank">synthesis temperature</a></div>
+<div class="subnested"><a href="future" target="_blank">atmosphere</a></div>
+<div class="subnested">ball material</div>
+<div class="subnested">ball size</div>
+<div class="subnested">ball to powder ratio</div>
+</details>
+<details class="nested"><summary>Sublimation</summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000051" target="_blank">Temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000053" target="_blank">synthesis pressure</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000050" target="_blank">synthesis duration</a></div>
+</details>
+<details class="nested"><summary>Molecular synthesis</summary>
+<div class="subnested"><a href="future" target="_blank">atmosphere</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000050" target="_blank">synthesis duration</a></div>
+<div class="subnested">reaction vessel</div>
+<div class="subnested">mixing device</div>
+<div class="subnested"><a href="future" target="_blank">stirring duration</a></div>
+<div class="subnested"><a href="future" target="_blank">stirring speed</a></div>
+<div class="subnested"><a href="future" target="_blank">mixing temperature</a></div>
+<div class="subnested">filtration device</div>
+<div class="subnested">filter type</div>
+<div class="subnested">crystallisation solvents</div>
+<div class="subnested">precipitation agent</div>
+<div class="subnested">crystallisation duration</div>
+<div class="subnested"><a href="future" target="_blank">purification solvent</a></div>
+<div class="subnested">number of cycles</div>
+<div class="subnested">drying device</div>
+<div class="subnested">drying temperature</div>
+<div class="subnested">temperature ramp</div>
+<div class="subnested">drying time</div>
+</details>
+<details class="nested"><summary><a href=" " target="_blank">Exsolution synthesis</a></summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000057" target="_blank">calcination initial temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000058" target="_blank">calcination final temperature</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000060" target="_blank">calcination dwelling time</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000055" target="_blank">calcination gaseous environment</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000059" target="_blank">calcination heating rate</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000056" target="_blank">calcination gas flow rate</a></div>
+</details>
+<div class="nested">other preparation method</div>
+<div class="nested">Nanocasting (hard-templating)</div>
+<div class="nested">Soft-templating</div>
+<div class="nested">Layer-by-layer deposition</div>
+<div class="nested">Thermal decomposition</div>
+<div class="nested">Bio-assisted synthesis (e.g. plant-based, enzyme-templated)</div>
+<div class="nested">Core–shell synthesis</div>
+<div class="nested">Supercritical fluid synthesis</div>
+<div class="nested">Sol–emulsion synthesis</div>
+<div class="nested">Melting</div>
+<div class="nested">Ion exchange</div>
+<div class="nested">Dip coating</div>
+<div class="nested">Reverse microemulsion</div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000021" target="_blank">Spray coating</a></div>
+<div class="nested">Chemical Vapor Deposition (CVD)</div>
+<div class="nested">Physical Vapor Deposition (PVD)</div>
+<div class="nested">Electrodeposition</div>
+<div class="nested">Solid-state synthesis</div>
+</details>
+</details>
+<details><summary>Recommended</summary>
+<details class="nested"><summary><a href="future" target="_blank">storage conditions</a></summary>
+</details>
+</details>
+<details><summary>Optional</summary>
+<details class="nested"><summary><a href="future" target="_blank">support</a></summary>
+<div class="nested">support preparation</div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0007246" target="_blank">solvent</a></summary>
+<div class="nested">solvent quantity</div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000122" target="_blank">Sample pre-treatment</a></summary>
+<div class="nested">vessel type</div>
+<div class="nested"><a href="future" target="_blank">atmosphere</a></div>
+<div class="nested">flow rate</div>
+<div class="nested">duration</div>
+<div class="nested">temperature</div>
+<div class="nested"><a href="future" target="_blank">heating procedure</a></div>
+</details>
+</details>
 </div>
-```
-
-```{raw} html
-<div class="dnd-exercise" data-answer="2,5" data-order="false">
-
-  <div class="dnd-box choices">
-    <span class="dnd-item" draggable="true" data-key="2">2</span>
-    <span class="dnd-item" draggable="true" data-key="9">9</span>
-    <span class="dnd-item" draggable="true" data-key="4">4</span>
-    <span class="dnd-item" draggable="true" data-key="5">5</span>
-  </div>
-
-  <div class="dnd-box target"></div>
-
-  <div>
-    <button class="dnd-btn check">Check me</button>
-    <button class="dnd-btn reset">Reset</button>
-  </div>
+<details>
+    <summary><strong>Metadata Hierarchy Chart</strong></summary>
+    <div>                            <div id="526fbfe2-195c-41f2-a3fa-91b8cca62f5c" class="plotly-graph-div" style="height:700px; width:700px;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("526fbfe2-195c-41f2-a3fa-91b8cca62f5c")) {                    Plotly.newPlot(                        "526fbfe2-195c-41f2-a3fa-91b8cca62f5c",                        [{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003elabel=%{label}\u003cbr\u003eparent=%{parent}\u003cbr\u003eid=%{id}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["synthesis","nominal composition","catalyst measured properties (e.g. BET, sieve fraction, molar ratio)","precursor","precursor quantity","preparation method","storage conditions","support","support preparation","","","solvent","solvent quantity","","Sample pre-treatment","vessel type","atmosphere","flow rate","duration","temperature","heating procedure","","impregnation","type of impregnation","impregnation duration","impregnation temperature","drying device","drying temperature","drying time","drying atmosphere","calcination initial temperature","calcination final temperature","calcination dwelling time","number of cycles","calcination gaseous environment","calcination heating rate","calcination gas flow rate","","co-precipitation","precipitating agent","precipitating concentration","synthesis pH","mixing rate","mixing time","mixing temperature","drying device","drying temperature","drying time","drying atmosphere","calcination initial temperature","calcination final temperature","calcination dwelling time","number of cycles","calcination gaseous environment","calcination heating rate","calcination gas flow rate","order of addition","filtration","purification","aging temperature","aging time","","sol-gel","hydrolysis ratio","aging time","drying","surfactant template","","solvothermal","filing volume","synthesis temperature","synthesis duration","vessel type","equipment","stirring speed","stirrer type","cooling rate","","plasma-assisted","plasma type","equipment","atmosphere","power input","exposure time","synthesis pressure","synthesis temperature","","combustion synthesis","fuel","oxidizer","fuel-to-oxidizer ratio","set temperature","post-treatment","atmosphere","vessel type","equipment","","atomic layer deposition","substrate","pulse time","purging duration","number of cycles","deposition temperature","carrier gas","","","","","","","","deposition-precipitation","precipitating agent","synthesis pH","deposition temperature","deposition time","mixing rate","mixing time","mixing temperature","drying device","drying temperature","drying time","drying atmosphere","calcination initial temperature","calcination final temperature","calcination dwelling time","number of cycles","calcination gaseous environment","calcination heating rate","calcination gas flow rate","order of addition","filtration","purification","aging temperature","aging time","","microwave-assisted","equipment","power","synthesis duration","synthesis temperature","microwave frequency","vessel type","","Sonochemical synthesis","stirring duration","sonication power","sonication duration","temperature","drying device","drying temperature","drying time","drying atmosphere","calcination initial temperature","calcination final temperature","calcination dwelling time","number of cycles","calcination gaseous environment","calcination heating rate","calcination gas flow rate","","Flame spray pyrolysis","type of flame","flow rate","inlet system","flame ring","Dispersant","capillary pressure","fuel\u002fdispersant ratio","filtration device","filter type","","mechanochemical synthesis","equipment","Vessel volume","size and material","milling speed","milling duration","synthesis temperature","atmosphere","ball material","ball size","ball to powder ratio","","Sublimation","Temperature","synthesis pressure","synthesis duration","","Molecular synthesis","atmosphere","synthesis duration","reaction vessel","mixing device","stirring duration","stirring speed","mixing temperature","filtration device","filter type","crystallisation solvents","precipitation agent","crystallisation duration","purification solvent","number of cycles","drying device","drying temperature","temperature ramp","drying time","","Exsolution synthesis","calcination initial temperature","calcination final temperature","calcination dwelling time","calcination gaseous environment","calcination heating rate","calcination gas flow rate","","","other preparation method","","Nanocasting (hard-templating)","Soft-templating","Layer-by-layer deposition","Thermal decomposition","Bio-assisted synthesis (e.g. plant-based, enzyme-templated)","Core\u2013shell synthesis","Supercritical fluid synthesis","Sol\u2013emulsion synthesis","Melting","Ion exchange","Dip coating","Reverse microemulsion","Spray coating","Chemical Vapor Deposition (CVD)","Physical Vapor Deposition (PVD)","Electrodeposition","Solid-state synthesis"],"ids":["synthesis","synthesis|nominal composition","synthesis|catalyst measured properties (e.g. BET, sieve fraction, molar ratio)","synthesis|precursor","synthesis|precursor quantity","synthesis|preparation method","synthesis|storage conditions","synthesis|support","synthesis|support preparation","synthesis|","synthesis|","synthesis|solvent","synthesis|solvent quantity","synthesis|","synthesis|Sample pre-treatment","synthesis|vessel type","synthesis|atmosphere","synthesis|flow rate","synthesis|duration","synthesis|temperature","synthesis|heating procedure","synthesis|","synthesis|impregnation","synthesis|type of impregnation","synthesis|impregnation duration","synthesis|impregnation temperature","synthesis|drying device","synthesis|drying temperature","synthesis|drying time","synthesis|drying atmosphere","synthesis|calcination initial temperature","synthesis|calcination final temperature","synthesis|calcination dwelling time","synthesis|number of cycles","synthesis|calcination gaseous environment","synthesis|calcination heating rate","synthesis|calcination gas flow rate","synthesis|","synthesis|co-precipitation","synthesis|precipitating agent","synthesis|precipitating concentration","synthesis|synthesis pH","synthesis|mixing rate","synthesis|mixing time","synthesis|mixing temperature","synthesis|drying device","synthesis|drying temperature","synthesis|drying time","synthesis|drying atmosphere","synthesis|calcination initial temperature","synthesis|calcination final temperature","synthesis|calcination dwelling time","synthesis|number of cycles","synthesis|calcination gaseous environment","synthesis|calcination heating rate","synthesis|calcination gas flow rate","synthesis|order of addition","synthesis|filtration","synthesis|purification","synthesis|aging temperature","synthesis|aging time","synthesis|","synthesis|sol-gel","synthesis|hydrolysis ratio","synthesis|aging time","synthesis|drying","synthesis|surfactant template","synthesis|","synthesis|solvothermal","synthesis|filing volume","synthesis|synthesis temperature","synthesis|synthesis duration","synthesis|vessel type","synthesis|equipment","synthesis|stirring speed","synthesis|stirrer type","synthesis|cooling rate","synthesis|","synthesis|plasma-assisted","synthesis|plasma type","synthesis|equipment","synthesis|atmosphere","synthesis|power input","synthesis|exposure time","synthesis|synthesis pressure","synthesis|synthesis temperature","synthesis|","synthesis|combustion synthesis","synthesis|fuel","synthesis|oxidizer","synthesis|fuel-to-oxidizer ratio","synthesis|set temperature","synthesis|post-treatment","synthesis|atmosphere","synthesis|vessel type","synthesis|equipment","synthesis|","synthesis|atomic layer deposition","synthesis|substrate","synthesis|pulse time","synthesis|purging duration","synthesis|number of cycles","synthesis|deposition temperature","synthesis|carrier gas","synthesis|","synthesis|","synthesis|","synthesis|","synthesis|","synthesis|","synthesis|","synthesis|deposition-precipitation","synthesis|precipitating agent","synthesis|synthesis pH","synthesis|deposition temperature","synthesis|deposition time","synthesis|mixing rate","synthesis|mixing time","synthesis|mixing temperature","synthesis|drying device","synthesis|drying temperature","synthesis|drying time","synthesis|drying atmosphere","synthesis|calcination initial temperature","synthesis|calcination final temperature","synthesis|calcination dwelling time","synthesis|number of cycles","synthesis|calcination gaseous environment","synthesis|calcination heating rate","synthesis|calcination gas flow rate","synthesis|order of addition","synthesis|filtration","synthesis|purification","synthesis|aging temperature","synthesis|aging time","synthesis|","synthesis|microwave-assisted","synthesis|equipment","synthesis|power","synthesis|synthesis duration","synthesis|synthesis temperature","synthesis|microwave frequency","synthesis|vessel type","synthesis|","synthesis|Sonochemical synthesis","synthesis|stirring duration","synthesis|sonication power","synthesis|sonication duration","synthesis|temperature","synthesis|drying device","synthesis|drying temperature","synthesis|drying time","synthesis|drying atmosphere","synthesis|calcination initial temperature","synthesis|calcination final temperature","synthesis|calcination dwelling time","synthesis|number of cycles","synthesis|calcination gaseous environment","synthesis|calcination heating rate","synthesis|calcination gas flow rate","synthesis|","synthesis|Flame spray pyrolysis","synthesis|type of flame","synthesis|flow rate","synthesis|inlet system","synthesis|flame ring","synthesis|Dispersant","synthesis|capillary pressure","synthesis|fuel\u002fdispersant ratio","synthesis|filtration device","synthesis|filter type","synthesis|","synthesis|mechanochemical synthesis","synthesis|equipment","synthesis|Vessel volume","synthesis|size and material","synthesis|milling speed","synthesis|milling duration","synthesis|synthesis temperature","synthesis|atmosphere","synthesis|ball material","synthesis|ball size","synthesis|ball to powder ratio","synthesis|","synthesis|Sublimation","synthesis|Temperature","synthesis|synthesis pressure","synthesis|synthesis duration","synthesis|","synthesis|Molecular synthesis","synthesis|atmosphere","synthesis|synthesis duration","synthesis|reaction vessel","synthesis|mixing device","synthesis|stirring duration","synthesis|stirring speed","synthesis|mixing temperature","synthesis|filtration device","synthesis|filter type","synthesis|crystallisation solvents","synthesis|precipitation agent","synthesis|crystallisation duration","synthesis|purification solvent","synthesis|number of cycles","synthesis|drying device","synthesis|drying temperature","synthesis|temperature ramp","synthesis|drying time","synthesis|","synthesis|Exsolution synthesis","synthesis|calcination initial temperature","synthesis|calcination final temperature","synthesis|calcination dwelling time","synthesis|calcination gaseous environment","synthesis|calcination heating rate","synthesis|calcination gas flow rate","synthesis|","synthesis|","synthesis|other preparation method","synthesis|","synthesis|Nanocasting (hard-templating)","synthesis|Soft-templating","synthesis|Layer-by-layer deposition","synthesis|Thermal decomposition","synthesis|Bio-assisted synthesis (e.g. plant-based, enzyme-templated)","synthesis|Core\u2013shell synthesis","synthesis|Supercritical fluid synthesis","synthesis|Sol\u2013emulsion synthesis","synthesis|Melting","synthesis|Ion exchange","synthesis|Dip coating","synthesis|Reverse microemulsion","synthesis|Spray coating","synthesis|Chemical Vapor Deposition (CVD)","synthesis|Physical Vapor Deposition (PVD)","synthesis|Electrodeposition","synthesis|Solid-state synthesis"],"labels":["synthesis","nominal composition","catalyst measured properties (e.g. BET, sieve fraction, molar ratio)","precursor","precursor quantity","preparation method","storage conditions","support","support preparation","","","solvent","solvent quantity","","Sample pre-treatment","vessel type","atmosphere","flow rate","duration","temperature","heating procedure","","impregnation","type of impregnation","impregnation duration","impregnation temperature","drying device","drying temperature","drying time","drying atmosphere","calcination initial temperature","calcination final temperature","calcination dwelling time","number of cycles","calcination gaseous environment","calcination heating rate","calcination gas flow rate","","co-precipitation","precipitating agent","precipitating concentration","synthesis pH","mixing rate","mixing time","mixing temperature","drying device","drying temperature","drying time","drying atmosphere","calcination initial temperature","calcination final temperature","calcination dwelling time","number of cycles","calcination gaseous environment","calcination heating rate","calcination gas flow rate","order of addition","filtration","purification","aging temperature","aging time","","sol-gel","hydrolysis ratio","aging time","drying","surfactant template","","solvothermal","filing volume","synthesis temperature","synthesis duration","vessel type","equipment","stirring speed","stirrer type","cooling rate","","plasma-assisted","plasma type","equipment","atmosphere","power input","exposure time","synthesis pressure","synthesis temperature","","combustion synthesis","fuel","oxidizer","fuel-to-oxidizer ratio","set temperature","post-treatment","atmosphere","vessel type","equipment","","atomic layer deposition","substrate","pulse time","purging duration","number of cycles","deposition temperature","carrier gas","","","","","","","","deposition-precipitation","precipitating agent","synthesis pH","deposition temperature","deposition time","mixing rate","mixing time","mixing temperature","drying device","drying temperature","drying time","drying atmosphere","calcination initial temperature","calcination final temperature","calcination dwelling time","number of cycles","calcination gaseous environment","calcination heating rate","calcination gas flow rate","order of addition","filtration","purification","aging temperature","aging time","","microwave-assisted","equipment","power","synthesis duration","synthesis temperature","microwave frequency","vessel type","","Sonochemical synthesis","stirring duration","sonication power","sonication duration","temperature","drying device","drying temperature","drying time","drying atmosphere","calcination initial temperature","calcination final temperature","calcination dwelling time","number of cycles","calcination gaseous environment","calcination heating rate","calcination gas flow rate","","Flame spray pyrolysis","type of flame","flow rate","inlet system","flame ring","Dispersant","capillary pressure","fuel\u002fdispersant ratio","filtration device","filter type","","mechanochemical synthesis","equipment","Vessel volume","size and material","milling speed","milling duration","synthesis temperature","atmosphere","ball material","ball size","ball to powder ratio","","Sublimation","Temperature","synthesis pressure","synthesis duration","","Molecular synthesis","atmosphere","synthesis duration","reaction vessel","mixing device","stirring duration","stirring speed","mixing temperature","filtration device","filter type","crystallisation solvents","precipitation agent","crystallisation duration","purification solvent","number of cycles","drying device","drying temperature","temperature ramp","drying time","","Exsolution synthesis","calcination initial temperature","calcination final temperature","calcination dwelling time","calcination gaseous environment","calcination heating rate","calcination gas flow rate","","","other preparation method","","Nanocasting (hard-templating)","Soft-templating","Layer-by-layer deposition","Thermal decomposition","Bio-assisted synthesis (e.g. plant-based, enzyme-templated)","Core\u2013shell synthesis","Supercritical fluid synthesis","Sol\u2013emulsion synthesis","Melting","Ion exchange","Dip coating","Reverse microemulsion","Spray coating","Chemical Vapor Deposition (CVD)","Physical Vapor Deposition (PVD)","Electrodeposition","Solid-state synthesis"],"name":"","parents":["","synthesis","synthesis","synthesis","synthesis|precursor","synthesis","synthesis","synthesis","synthesis|support","synthesis","synthesis","synthesis","synthesis|solvent","synthesis","synthesis","synthesis|Sample pre-treatment","synthesis|Sample pre-treatment","synthesis|Sample pre-treatment","synthesis|Sample pre-treatment","synthesis|Sample pre-treatment","synthesis|Sample pre-treatment","synthesis","synthesis|preparation method","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis|impregnation","synthesis","synthesis|preparation method","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis|co-precipitation","synthesis","synthesis|preparation method","synthesis|sol-gel","synthesis|sol-gel","synthesis|sol-gel","synthesis|sol-gel","synthesis","synthesis|preparation method","synthesis|solvothermal","synthesis|solvothermal","synthesis|solvothermal","synthesis|solvothermal","synthesis|solvothermal","synthesis|solvothermal","synthesis|solvothermal","synthesis|solvothermal","synthesis","synthesis|preparation method","synthesis|plasma-assisted","synthesis|plasma-assisted","synthesis|plasma-assisted","synthesis|plasma-assisted","synthesis|plasma-assisted","synthesis|plasma-assisted","synthesis|plasma-assisted","synthesis","synthesis|preparation method","synthesis|combustion synthesis","synthesis|combustion synthesis","synthesis|combustion synthesis","synthesis|combustion synthesis","synthesis|combustion synthesis","synthesis|combustion synthesis","synthesis|combustion synthesis","synthesis|combustion synthesis","synthesis","synthesis|preparation method","synthesis|atomic layer deposition","synthesis|atomic layer deposition","synthesis|atomic layer deposition","synthesis|atomic layer deposition","synthesis|atomic layer deposition","synthesis|atomic layer deposition","synthesis","synthesis","synthesis","synthesis","synthesis","synthesis","synthesis","synthesis|preparation method","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis|deposition-precipitation","synthesis","synthesis|preparation method","synthesis|microwave-assisted","synthesis|microwave-assisted","synthesis|microwave-assisted","synthesis|microwave-assisted","synthesis|microwave-assisted","synthesis|microwave-assisted","synthesis","synthesis|preparation method","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis|Sonochemical synthesis","synthesis","synthesis|preparation method","synthesis|Flame spray pyrolysis","synthesis|Flame spray pyrolysis","synthesis|Flame spray pyrolysis","synthesis|Flame spray pyrolysis","synthesis|Flame spray pyrolysis","synthesis|Flame spray pyrolysis","synthesis|Flame spray pyrolysis","synthesis|Flame spray pyrolysis","synthesis|Flame spray pyrolysis","synthesis","synthesis|preparation method","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis|mechanochemical synthesis","synthesis","synthesis|preparation method","synthesis|Sublimation","synthesis|Sublimation","synthesis|Sublimation","synthesis","synthesis|preparation method","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis|Molecular synthesis","synthesis","synthesis|preparation method","synthesis|Exsolution synthesis","synthesis|Exsolution synthesis","synthesis|Exsolution synthesis","synthesis|Exsolution synthesis","synthesis|Exsolution synthesis","synthesis|Exsolution synthesis","synthesis","synthesis","synthesis|preparation method","synthesis","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method","synthesis|preparation method"],"type":"sunburst","marker":{"colors":["#d73027","#d73027","#d73027","#d73027","#f46d43","#d73027","#f46d43","#fdae61","#fdae61","#dddddd","#dddddd","#fdae61","#fdae61","#dddddd","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#f46d43","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#f46d43","#f46d43","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#f46d43","#f46d43","#f46d43","#f46d43","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#f46d43","#f46d43","#f46d43","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#f46d43","#f46d43","#f46d43","#fdae61","#fdae61","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#f46d43","#f46d43","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#fdae61","#f46d43","#f46d43","#f46d43","#fdae61","#fdae61","#dddddd","#dddddd","#fdae61","#f46d43","#f46d43","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#f46d43","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#fdae61","#fdae61","#fdae61","#f46d43","#f46d43","#f46d43","#f46d43","#f46d43","#f46d43","#f46d43","#dddddd","#dddddd","#f46d43","#fdae61","#f46d43","#dddddd","#dddddd","#f46d43","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#fdae61","#dddddd","#dddddd","#f46d43","#f46d43","#f46d43","#f46d43","#f46d43","#f46d43","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd"]}}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"legend":{"tracegroupgap":0},"title":{"text":"Synthesis Metadata Hierarchy"},"margin":{"t":50,"l":10,"r":10,"b":10},"width":700,"height":700},                        {"responsive": true}                    )                };                            </script>        </div>
+    </details>
+</details>
+<details><summary>characterization</summary>
+<p>The data class 'Characterization' describes the minimum information which should be reported with research data to describe the nature of the catalyst. Herefore, various characterization methods are listed which are highly important in the catalysis research field. To ensure a standaridisation of the data, recommendations on the meta data report are given for the specific methods.</p>
+<div class='indented-section'>
+<details><summary>Mandatory</summary>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000187" target="_blank">equipment</a></summary>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000066" target="_blank">characterization technique</a></summary>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000158" target="_blank">powder X-ray diffraction</a></summary>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/OBI_0001138" target="_blank">X-ray source</a></div>
+<div class="subnested"><a href="future" target="_blank">Atmosphere</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000108
+" target="_blank">operation mode</a></div>
+<div class="subnested">Minimum 2 theta</div>
+<div class="subnested">Maximum 2 theta</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0000950" target="_blank">Step size</a></div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/CHMO_0002120" target="_blank">Monochromator</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+<div class="subnested">Sample spinning speed</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002455" target="_blank">experiment duration</a></div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000286
+" target="_blank">X-ray absorption spectroscopy</a></summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000108
+" target="_blank">operation mode</a></div>
+<div class="subnested">element analyzed</div>
+<div class="subnested">absorption edge</div>
+<div class="subnested">monochromator</div>
+<div class="subnested">minimum energy</div>
+<div class="subnested">maximum energy</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0000950" target="_blank">energy resolution</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">temperature</a></div>
+<div class="subnested">beamline source</div>
+<div class="subnested">noise of the measurement</div>
+<div class="subnested">number of cycles</div>
+</details>
+<details class="nested"><summary>infrared spectroscopy</summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000108
+" target="_blank">operation mode</a></div>
+<div class="subnested">Minimum wavenumber</div>
+<div class="subnested">Maximum wavenumber</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0000950" target="_blank">step size</a></div>
+<div class="subnested">temperature</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/process#AFP_0003721" target="_blank">Background correction</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0003051" target="_blank">Number of scans setting</a></div>
+<div class="subnested"><a href="future" target="_blank">Atmosphere</a></div>
+<div class="subnested">Minimum wavenumber</div>
+<div class="subnested">Maximum wavenumber</div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000069" target="_blank">Raman spectroscopy</a></summary>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001594" target="_blank">Excitation laser wavelength setting (Raman)</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001595" target="_blank">Excitation laser power setting (Raman)</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002226" target="_blank">magnification setting</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001671" target="_blank">Integration time</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0003051" target="_blank">Number of scans setting</a></div>
+<div class="subnested"><a href="future" target="_blank">Atmosphere</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+<div class="subnested">Filter or grating</div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000497" target="_blank">gas chromatography-mass spectrometry</a></summary>
+<div class="subnested"><a href="future" target="_blank">external standard</a></div>
+<div class="subnested"><a href="future" target="_blank">internal standard</a></div>
+<div class="subnested">column type</div>
+<div class="subnested">Carrier gas</div>
+<div class="subnested">Carrier gas purity</div>
+<div class="subnested">Inlet temperature</div>
+<div class="subnested">Minimum oven temperature</div>
+<div class="subnested">Maximum oven temperature</div>
+<div class="subnested">Heating ramp</div>
+<div class="subnested">Heating procedure</div>
+<div class="subnested">Acquisition mode</div>
+<div class="subnested">Solvent delay</div>
+<div class="subnested">Trace Ion Detection</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002652" target="_blank">m/z minimum setting</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002653" target="_blank">m/z maximum setting</a></div>
+<div class="subnested">Split ratio</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001577" target="_blank">injection volume setting</a></div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000073" target="_blank">Nuclear magnetic resonance spectroscopy</a></summary>
+<div class="subnested">nucleus</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007246" target="_blank">solvent</a></div>
+<div class="subnested"><a href="http://nmrML.org/nmrCV#NMR:1400026" target="_blank">irradiation frequency</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">temperature</a></div>
+<div class="subnested"><a href="http://nmrML.org/nmrCV#NMR:1400037" target="_blank">NMR pulse sequence</a></div>
+<div class="subnested"><a href="http://nmrML.org/nmrCV#NMR:1400132" target="_blank">NMR sample tube</a></div>
+<div class="subnested"><a href="http://nmrML.org/nmrCV#NMR:1400087" target="_blank">number of scans</a></div>
+<div class="subnested">atmosphere</div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000078" target="_blank">Transmission electron microscopy</a></summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000108
+" target="_blank">operation mode</a></div>
+<div class="subnested">gun type</div>
+<div class="subnested">acceleration voltage</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002226
+" target="_blank">magnification setting</a></div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000267" target="_blank">inductively-coupled plasma atomic emission spectroscopy</a></summary>
+<div class="subnested">element analyzed</div>
+<div class="subnested">calibration method</div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/NCIT_C105701" target="_blank">detection limit</a></div>
+<div class="subnested">matrix effect correction</div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000075" target="_blank">scanning electron microscopy</a></summary>
+<div class="subnested">gun type</div>
+<div class="subnested">acceleration voltage</div>
+<div class="subnested">Image resolution</div>
+<div class="subnested">field emitter</div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000690" target="_blank">thermogravimetry</a></summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000108
+" target="_blank">operation mode</a></div>
+<div class="subnested"><a href="future" target="_blank">atmosphere</a></div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/NCIT_C164644" target="_blank">initial temperature</a></div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/NCIT_C164644" target="_blank">final temperature</a></div>
+<div class="subnested">heating rate</div>
+<div class="subnested">heating procedure</div>
+<div class="subnested"><a href="future" target="_blank">sample mass</a></div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000404" target="_blank">X-ray photoelectron spectroscopy</a></summary>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/OBI_0001138" target="_blank">X-ray source</a></div>
+<div class="subnested">Total acquisition time</div>
+<div class="subnested">Number of scans</div>
+<div class="subnested">Spot size</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000108" target="_blank">Lense mode</a></div>
+<div class="subnested">minimum energy</div>
+<div class="subnested">maximum energy</div>
+<div class="subnested">step size</div>
+<div class="subnested">pass energy</div>
+<div class="subnested">charge compensation</div>
+<div class="subnested"><a href="future" target="_blank">atmosphere</a></div>
+</details>
+<details class="nested"><summary>Brunnauer-Emmet-Teller</summary>
+<div class="subnested">adsorbate gas</div>
+<div class="subnested">degassing temperature</div>
+<div class="subnested">measurement temperature</div>
+<div class="subnested">pore size distribution method</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007038" target="_blank">sample mass</a></div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0001075" target="_blank">Elemental analysis</a></summary>
+<div class="subnested">elements analyzed</div>
+<div class="subnested">combustion temperature</div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/MSIO_0000028" target="_blank">carrier gas</a></div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000079" target="_blank">ultraviolet-visible spectroscopy</a></summary>
+<div class="subnested">Minimum wavelength</div>
+<div class="subnested">Maximum wavelength</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/quality#AFQ_0000268" target="_blank">Path length</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007246" target="_blank">Solvent</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007244" target="_blank">concentration</a></div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000645" target="_blank">diffuse reflectance infrared Fourier transform spectroscopy</a></summary>
+<div class="subnested">Adsorption gas</div>
+<div class="subnested">atmosphere</div>
+<div class="subnested">flow rate</div>
+<div class="subnested">Diluting reference</div>
+<div class="subnested">Ratio reference sample</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0000950" target="_blank">Step size</a></div>
+<div class="subnested">Resolution</div>
+<div class="subnested">Background correction method</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">temperature</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0003051" target="_blank">number of scans setting</a></div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000025" target="_blank">cyclic voltammetry</a></summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007213" target="_blank">Scan rate</a></div>
+<div class="subnested">Minimum potential</div>
+<div class="subnested">Maximum potential</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007218" target="_blank">Step size potential</a></div>
+<div class="subnested">Electrolyte composition</div>
+<div class="subnested">Electrolyte concentration</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007204" target="_blank">Reference electrode</a></div>
+<div class="subnested">Number of cycles</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007202" target="_blank">Working electrode</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007203" target="_blank">Counter electrode</a></div>
+<div class="subnested">atmosphere</div>
+<div class="subnested">temperature</div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000167
+" target="_blank">dynamic light scattering</a></summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007246" target="_blank">Solvent</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007244" target="_blank">Concentration</a></div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000176" target="_blank">Light wavelength</a></div>
+<div class="subnested">Scattering angle</div>
+<div class="subnested">Refractive index</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+<div class="subnested">Dispersant</div>
+<div class="subnested">Measurement duration</div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000482" target="_blank">electrospray ionisation mass spectrometry</a></summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000108" target="_blank">Operation mode</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002652" target="_blank">m/z minimum setting</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002653" target="_blank">m/z maximum setting</a></div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/CHMO_0002792" target="_blank">Spray voltage</a></div>
+<div class="subnested">Capillary temperature</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007246" target="_blank">Solvent composition</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001881" target="_blank">Flow rate</a></div>
+<div class="subnested">Carrier gas</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007244" target="_blank">Concentration</a></div>
+</details>
+<details class="nested"><summary>photoluminescence spectroscopy</summary>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002479" target="_blank">Excitation wavelength setting</a></div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/NCIT_C204101" target="_blank">Emission wavelength</a></div>
+<div class="subnested">Optical filter</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+<div class="subnested">Emission range</div>
+<div class="subnested">Slit width</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0000950" target="_blank">Step size</a></div>
+<div class="subnested">Integration time</div>
+</details>
+<details class="nested"><summary>Photoluminescence lifetime measurement</summary>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002479" target="_blank">Excitation wavelength setting</a></div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/NCIT_C204101" target="_blank">Emission wavelength</a></div>
+<div class="subnested">Optical filter</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+<div class="subnested">Lifetime fitting model</div>
+<div class="subnested">Number of shots</div>
+</details>
+<details class="nested"><summary><a href="http://purl.allotrope.org/ontologies/process#AFP_0000843" target="_blank">size-exclusion chromatography</a></summary>
+<div class="subnested">column type</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/role#AFRL_0000011" target="_blank">Eluent</a></div>
+<div class="subnested">Flow rate</div>
+<div class="subnested">Calibration standard</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001577" target="_blank">injection volume setting</a></div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000796" target="_blank">high-performance liquid chromatography mass spectrometry</a></summary>
+<div class="subnested">column type</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/role#AFRL_0000011" target="_blank">Eluent</a></div>
+<div class="subnested">Gradient program</div>
+<div class="subnested">Ionization mode</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+<div class="subnested">Flow rate</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001577" target="_blank">injection volume setting</a></div>
+<div class="subnested"><a href="future" target="_blank">external standard</a></div>
+<div class="subnested"><a href="future" target="_blank">internal standard</a></div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000852" target="_blank">single crystal X-ray diffraction</a></summary>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/OBI_0001138" target="_blank">X-ray source</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+</details>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000309" target="_blank">energy-dispersive X-ray emission spectroscopy</a></summary>
+<div class="subnested">Primary energy</div>
+<div class="subnested">Counting time</div>
+<div class="subnested">Resolution</div>
+<div class="subnested">Calibration method</div>
+</details>
+<div class="nested"><a href="http://purl.obolibrary.org/obo/CHMO_0002907" target="_blank">temperature-programmed oxidization</a></div>
+<div class="nested"><a href="http://purl.obolibrary.org/obo/CHMO_0002908" target="_blank">temperature-programmed reduction</a></div>
+<details class="nested"><summary>Conductivity Measurement</summary>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+<div class="subnested">Electrode configuration</div>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007239" target="_blank">frequency</a></div>
+<div class="subnested">AC or DC mode</div>
+<div class="subnested">Sample geometry</div>
+</details>
+</details>
+</details>
+<details><summary>Recommended</summary>
+</details>
+<details><summary>Optional</summary>
+<details class="nested"><summary>sample state</summary>
+</details>
+<details class="nested"><summary>sample description</summary>
+</details>
+<details class="nested"><summary><a href="http://purl.allotrope.org/ontologies/equipment#AFE_0000317" target="_blank">detector type</a></summary>
+</details>
+<details class="nested"><summary><a href="http://purl.allotrope.org/ontologies/process#AFP_0001159" target="_blank">sample preparation</a></summary>
+<div class="nested">sample holder</div>
+<div class="nested">particle size</div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000122" target="_blank">Sample pre-treatment</a></summary>
+<div class="nested">pretreatment vessel type</div>
+<div class="nested">pretreatment atmosphere</div>
+<div class="nested"><a href="future" target="_blank">pretreatment flow rate</a></div>
+<div class="nested">pretreatment duration</div>
+<div class="nested">pretreatment temperature</div>
+<div class="nested">pretreatment heating procedure</div>
+</details>
+</details>
 </div>
-
-<div class="dnd-exercise" data-answer="2,4,3,9" data-order="true">
-
-  <div class="dnd-box choices">
-    <span class="dnd-item" draggable="true" data-key="9">9</span>
-    <span class="dnd-item" draggable="true" data-key="3">3</span>
-    <span class="dnd-item" draggable="true" data-key="4">4</span>
-    <span class="dnd-item" draggable="true" data-key="2">2</span>
-  </div>
-
-  <div class="dnd-box target"></div>
-
-  <div>
-    <button class="dnd-btn check">Check me</button>
-    <button class="dnd-btn reset">Reset</button>
-  </div>
+<details>
+    <summary><strong>Metadata Hierarchy Chart</strong></summary>
+    <div>                            <div id="933ecfff-2b50-4f00-9315-415c8b8c34c2" class="plotly-graph-div" style="height:700px; width:700px;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("933ecfff-2b50-4f00-9315-415c8b8c34c2")) {                    Plotly.newPlot(                        "933ecfff-2b50-4f00-9315-415c8b8c34c2",                        [{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003elabel=%{label}\u003cbr\u003eparent=%{parent}\u003cbr\u003eid=%{id}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["characterization","sample state","sample description","detector type","equipment","characterization technique","sample preparation","sample holder","particle size","Sample pre-treatment","pretreatment vessel type","pretreatment atmosphere","pretreatment flow rate","pretreatment duration","pretreatment temperature","pretreatment heating procedure","","powder X-ray diffraction","X-ray source","Atmosphere","operation mode","Minimum 2 theta","Maximum 2 theta","Step size","Monochromator","Temperature","Sample spinning speed","experiment duration","","X-ray absorption spectroscopy","operation mode","element analyzed","absorption edge","monochromator","minimum energy","maximum energy","energy resolution","temperature","beamline source","noise of the measurement","number of cycles","","infrared spectroscopy","operation mode","Minimum wavenumber","Maximum wavenumber","step size","temperature","Background correction","Number of scans setting","Atmosphere","","Raman spectroscopy","Excitation laser wavelength setting (Raman)","Excitation laser power setting (Raman)","Minimum wavenumber","Maximum wavenumber","magnification setting","Integration time","Number of scans setting","Atmosphere","Temperature","Filter or grating","","gas chromatography-mass spectrometry","external standard","internal standard","column type","Carrier gas","Carrier gas purity","Inlet temperature","Minimum oven temperature","Maximum oven temperature","Heating ramp","Heating procedure","Acquisition mode","Solvent delay","Trace Ion Detection","m\u002fz minimum setting","m\u002fz maximum setting","Split ratio","injection volume setting","","Nuclear magnetic resonance spectroscopy","nucleus","solvent","irradiation frequency","temperature","NMR pulse sequence","NMR sample tube","number of scans","atmosphere","","Transmission electron microscopy","operation mode","gun type","acceleration voltage","magnification setting","","","inductively-coupled plasma atomic emission spectroscopy","element analyzed","calibration method","detection limit","matrix effect correction","","scanning electron microscopy","gun type","acceleration voltage","Image resolution","field emitter","","thermogravimetry","operation mode","atmosphere","initial temperature","final temperature","heating rate","heating procedure","sample mass","","X-ray photoelectron spectroscopy","X-ray source","Total acquisition time","Number of scans","Spot size","Lense mode","minimum energy","maximum energy","step size","pass energy","charge compensation","atmosphere","","Brunnauer-Emmet-Teller","adsorbate gas","degassing temperature","measurement temperature","pore size distribution method","sample mass","","Elemental analysis","elements analyzed","combustion temperature","carrier gas","","ultraviolet-visible spectroscopy","operation mode","Minimum wavelength","Maximum wavelength","Path length","Solvent","concentration","","diffuse reflectance infrared Fourier transform spectroscopy","Adsorption gas","atmosphere","flow rate","Diluting reference","Ratio reference sample","Step size","Resolution","Background correction method","temperature","number of scans setting","","cyclic voltammetry","Scan rate","Minimum potential","Maximum potential","Step size potential","Electrolyte composition","Electrolyte concentration","Reference electrode","Number of cycles","Working electrode","Counter electrode","atmosphere","temperature","","dynamic light scattering","Solvent","Concentration","Light wavelength","Scattering angle","Refractive index","Temperature","Dispersant","Measurement duration","","electrospray ionisation mass spectrometry","Operation mode","m\u002fz minimum setting","m\u002fz maximum setting","Spray voltage","Capillary temperature","Solvent composition","Flow rate","Carrier gas","Concentration","","","photoluminescence spectroscopy","Excitation wavelength setting","Emission wavelength","Optical filter","Temperature","Emission range","Slit width","Step size","Integration time","","Photoluminescence lifetime measurement","Excitation wavelength setting","Emission wavelength","Optical filter","Temperature","Lifetime fitting model","Number of shots","","size-exclusion chromatography","column type","Temperature","Eluent","Flow rate","Calibration standard","injection volume setting","","high-performance liquid chromatography mass spectrometry","column type","Eluent","Gradient program","Ionization mode","Temperature","Flow rate","injection volume setting","external standard","internal standard","","single crystal X-ray diffraction","X-ray source","Temperature","","energy-dispersive X-ray emission spectroscopy","Primary energy","Counting time","Resolution","Calibration method","","temperature-programmed oxidization","oxidizing gas composition","Heating rate","Minimum temperature","Maximum temperature","","temperature-programmed reduction","Reducing gas composition","Heating rate","Minimum temperature","Maximum temperature","","Conductivity Measurement","Temperature","Electrode configuration","frequency","AC or DC mode","Sample geometry","","CO chemisorption","Atmosphere","Flow rate","heating procedure","measurement duration","sample mass"],"ids":["characterization","characterization|sample state","characterization|sample description","characterization|detector type","characterization|equipment","characterization|characterization technique","characterization|sample preparation","characterization|sample holder","characterization|particle size","characterization|Sample pre-treatment","characterization|pretreatment vessel type","characterization|pretreatment atmosphere","characterization|pretreatment flow rate","characterization|pretreatment duration","characterization|pretreatment temperature","characterization|pretreatment heating procedure","characterization|","characterization|powder X-ray diffraction","characterization|X-ray source","characterization|Atmosphere","characterization|operation mode","characterization|Minimum 2 theta","characterization|Maximum 2 theta","characterization|Step size","characterization|Monochromator","characterization|Temperature","characterization|Sample spinning speed","characterization|experiment duration","characterization|","characterization|X-ray absorption spectroscopy","characterization|operation mode","characterization|element analyzed","characterization|absorption edge","characterization|monochromator","characterization|minimum energy","characterization|maximum energy","characterization|energy resolution","characterization|temperature","characterization|beamline source","characterization|noise of the measurement","characterization|number of cycles","characterization|","characterization|infrared spectroscopy","characterization|operation mode","characterization|Minimum wavenumber","characterization|Maximum wavenumber","characterization|step size","characterization|temperature","characterization|Background correction","characterization|Number of scans setting","characterization|Atmosphere","characterization|","characterization|Raman spectroscopy","characterization|Excitation laser wavelength setting (Raman)","characterization|Excitation laser power setting (Raman)","characterization|Minimum wavenumber","characterization|Maximum wavenumber","characterization|magnification setting","characterization|Integration time","characterization|Number of scans setting","characterization|Atmosphere","characterization|Temperature","characterization|Filter or grating","characterization|","characterization|gas chromatography-mass spectrometry","characterization|external standard","characterization|internal standard","characterization|column type","characterization|Carrier gas","characterization|Carrier gas purity","characterization|Inlet temperature","characterization|Minimum oven temperature","characterization|Maximum oven temperature","characterization|Heating ramp","characterization|Heating procedure","characterization|Acquisition mode","characterization|Solvent delay","characterization|Trace Ion Detection","characterization|m\u002fz minimum setting","characterization|m\u002fz maximum setting","characterization|Split ratio","characterization|injection volume setting","characterization|","characterization|Nuclear magnetic resonance spectroscopy","characterization|nucleus","characterization|solvent","characterization|irradiation frequency","characterization|temperature","characterization|NMR pulse sequence","characterization|NMR sample tube","characterization|number of scans","characterization|atmosphere","characterization|","characterization|Transmission electron microscopy","characterization|operation mode","characterization|gun type","characterization|acceleration voltage","characterization|magnification setting","characterization|","characterization|","characterization|inductively-coupled plasma atomic emission spectroscopy","characterization|element analyzed","characterization|calibration method","characterization|detection limit","characterization|matrix effect correction","characterization|","characterization|scanning electron microscopy","characterization|gun type","characterization|acceleration voltage","characterization|Image resolution","characterization|field emitter","characterization|","characterization|thermogravimetry","characterization|operation mode","characterization|atmosphere","characterization|initial temperature","characterization|final temperature","characterization|heating rate","characterization|heating procedure","characterization|sample mass","characterization|","characterization|X-ray photoelectron spectroscopy","characterization|X-ray source","characterization|Total acquisition time","characterization|Number of scans","characterization|Spot size","characterization|Lense mode","characterization|minimum energy","characterization|maximum energy","characterization|step size","characterization|pass energy","characterization|charge compensation","characterization|atmosphere","characterization|","characterization|Brunnauer-Emmet-Teller","characterization|adsorbate gas","characterization|degassing temperature","characterization|measurement temperature","characterization|pore size distribution method","characterization|sample mass","characterization|","characterization|Elemental analysis","characterization|elements analyzed","characterization|combustion temperature","characterization|carrier gas","characterization|","characterization|ultraviolet-visible spectroscopy","characterization|operation mode","characterization|Minimum wavelength","characterization|Maximum wavelength","characterization|Path length","characterization|Solvent","characterization|concentration","characterization|","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|Adsorption gas","characterization|atmosphere","characterization|flow rate","characterization|Diluting reference","characterization|Ratio reference sample","characterization|Step size","characterization|Resolution","characterization|Background correction method","characterization|temperature","characterization|number of scans setting","characterization|","characterization|cyclic voltammetry","characterization|Scan rate","characterization|Minimum potential","characterization|Maximum potential","characterization|Step size potential","characterization|Electrolyte composition","characterization|Electrolyte concentration","characterization|Reference electrode","characterization|Number of cycles","characterization|Working electrode","characterization|Counter electrode","characterization|atmosphere","characterization|temperature","characterization|","characterization|dynamic light scattering","characterization|Solvent","characterization|Concentration","characterization|Light wavelength","characterization|Scattering angle","characterization|Refractive index","characterization|Temperature","characterization|Dispersant","characterization|Measurement duration","characterization|","characterization|electrospray ionisation mass spectrometry","characterization|Operation mode","characterization|m\u002fz minimum setting","characterization|m\u002fz maximum setting","characterization|Spray voltage","characterization|Capillary temperature","characterization|Solvent composition","characterization|Flow rate","characterization|Carrier gas","characterization|Concentration","characterization|","characterization|","characterization|photoluminescence spectroscopy","characterization|Excitation wavelength setting","characterization|Emission wavelength","characterization|Optical filter","characterization|Temperature","characterization|Emission range","characterization|Slit width","characterization|Step size","characterization|Integration time","characterization|","characterization|Photoluminescence lifetime measurement","characterization|Excitation wavelength setting","characterization|Emission wavelength","characterization|Optical filter","characterization|Temperature","characterization|Lifetime fitting model","characterization|Number of shots","characterization|","characterization|size-exclusion chromatography","characterization|column type","characterization|Temperature","characterization|Eluent","characterization|Flow rate","characterization|Calibration standard","characterization|injection volume setting","characterization|","characterization|high-performance liquid chromatography mass spectrometry","characterization|column type","characterization|Eluent","characterization|Gradient program","characterization|Ionization mode","characterization|Temperature","characterization|Flow rate","characterization|injection volume setting","characterization|external standard","characterization|internal standard","characterization|","characterization|single crystal X-ray diffraction","characterization|X-ray source","characterization|Temperature","characterization|","characterization|energy-dispersive X-ray emission spectroscopy","characterization|Primary energy","characterization|Counting time","characterization|Resolution","characterization|Calibration method","characterization|","characterization|temperature-programmed oxidization","characterization|oxidizing gas composition","characterization|Heating rate","characterization|Minimum temperature","characterization|Maximum temperature","characterization|","characterization|temperature-programmed reduction","characterization|Reducing gas composition","characterization|Heating rate","characterization|Minimum temperature","characterization|Maximum temperature","characterization|","characterization|Conductivity Measurement","characterization|Temperature","characterization|Electrode configuration","characterization|frequency","characterization|AC or DC mode","characterization|Sample geometry","characterization|","characterization|CO chemisorption","characterization|Atmosphere","characterization|Flow rate","characterization|heating procedure","characterization|measurement duration","characterization|sample mass"],"labels":["characterization","sample state","sample description","detector type","equipment","characterization technique","sample preparation","sample holder","particle size","Sample pre-treatment","pretreatment vessel type","pretreatment atmosphere","pretreatment flow rate","pretreatment duration","pretreatment temperature","pretreatment heating procedure","","powder X-ray diffraction","X-ray source","Atmosphere","operation mode","Minimum 2 theta","Maximum 2 theta","Step size","Monochromator","Temperature","Sample spinning speed","experiment duration","","X-ray absorption spectroscopy","operation mode","element analyzed","absorption edge","monochromator","minimum energy","maximum energy","energy resolution","temperature","beamline source","noise of the measurement","number of cycles","","infrared spectroscopy","operation mode","Minimum wavenumber","Maximum wavenumber","step size","temperature","Background correction","Number of scans setting","Atmosphere","","Raman spectroscopy","Excitation laser wavelength setting (Raman)","Excitation laser power setting (Raman)","Minimum wavenumber","Maximum wavenumber","magnification setting","Integration time","Number of scans setting","Atmosphere","Temperature","Filter or grating","","gas chromatography-mass spectrometry","external standard","internal standard","column type","Carrier gas","Carrier gas purity","Inlet temperature","Minimum oven temperature","Maximum oven temperature","Heating ramp","Heating procedure","Acquisition mode","Solvent delay","Trace Ion Detection","m\u002fz minimum setting","m\u002fz maximum setting","Split ratio","injection volume setting","","Nuclear magnetic resonance spectroscopy","nucleus","solvent","irradiation frequency","temperature","NMR pulse sequence","NMR sample tube","number of scans","atmosphere","","Transmission electron microscopy","operation mode","gun type","acceleration voltage","magnification setting","","","inductively-coupled plasma atomic emission spectroscopy","element analyzed","calibration method","detection limit","matrix effect correction","","scanning electron microscopy","gun type","acceleration voltage","Image resolution","field emitter","","thermogravimetry","operation mode","atmosphere","initial temperature","final temperature","heating rate","heating procedure","sample mass","","X-ray photoelectron spectroscopy","X-ray source","Total acquisition time","Number of scans","Spot size","Lense mode","minimum energy","maximum energy","step size","pass energy","charge compensation","atmosphere","","Brunnauer-Emmet-Teller","adsorbate gas","degassing temperature","measurement temperature","pore size distribution method","sample mass","","Elemental analysis","elements analyzed","combustion temperature","carrier gas","","ultraviolet-visible spectroscopy","operation mode","Minimum wavelength","Maximum wavelength","Path length","Solvent","concentration","","diffuse reflectance infrared Fourier transform spectroscopy","Adsorption gas","atmosphere","flow rate","Diluting reference","Ratio reference sample","Step size","Resolution","Background correction method","temperature","number of scans setting","","cyclic voltammetry","Scan rate","Minimum potential","Maximum potential","Step size potential","Electrolyte composition","Electrolyte concentration","Reference electrode","Number of cycles","Working electrode","Counter electrode","atmosphere","temperature","","dynamic light scattering","Solvent","Concentration","Light wavelength","Scattering angle","Refractive index","Temperature","Dispersant","Measurement duration","","electrospray ionisation mass spectrometry","Operation mode","m\u002fz minimum setting","m\u002fz maximum setting","Spray voltage","Capillary temperature","Solvent composition","Flow rate","Carrier gas","Concentration","","","photoluminescence spectroscopy","Excitation wavelength setting","Emission wavelength","Optical filter","Temperature","Emission range","Slit width","Step size","Integration time","","Photoluminescence lifetime measurement","Excitation wavelength setting","Emission wavelength","Optical filter","Temperature","Lifetime fitting model","Number of shots","","size-exclusion chromatography","column type","Temperature","Eluent","Flow rate","Calibration standard","injection volume setting","","high-performance liquid chromatography mass spectrometry","column type","Eluent","Gradient program","Ionization mode","Temperature","Flow rate","injection volume setting","external standard","internal standard","","single crystal X-ray diffraction","X-ray source","Temperature","","energy-dispersive X-ray emission spectroscopy","Primary energy","Counting time","Resolution","Calibration method","","temperature-programmed oxidization","oxidizing gas composition","Heating rate","Minimum temperature","Maximum temperature","","temperature-programmed reduction","Reducing gas composition","Heating rate","Minimum temperature","Maximum temperature","","Conductivity Measurement","Temperature","Electrode configuration","frequency","AC or DC mode","Sample geometry","","CO chemisorption","Atmosphere","Flow rate","heating procedure","measurement duration","sample mass"],"name":"","parents":["","characterization","characterization","characterization","characterization","characterization","characterization","characterization|sample preparation","characterization|sample preparation","characterization","characterization|Sample pre-treatment","characterization|Sample pre-treatment","characterization|Sample pre-treatment","characterization|Sample pre-treatment","characterization|Sample pre-treatment","characterization|Sample pre-treatment","characterization","characterization|characterization technique","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization|powder X-ray diffraction","characterization","characterization|characterization technique","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization|X-ray absorption spectroscopy","characterization","characterization|characterization technique","characterization|infrared spectroscopy","characterization|infrared spectroscopy","characterization|infrared spectroscopy","characterization|infrared spectroscopy","characterization|infrared spectroscopy","characterization|infrared spectroscopy","characterization|infrared spectroscopy","characterization|infrared spectroscopy","characterization","characterization|characterization technique","characterization|Raman spectroscopy","characterization|Raman spectroscopy","characterization|infrared spectroscopy","characterization|infrared spectroscopy","characterization|Raman spectroscopy","characterization|Raman spectroscopy","characterization|Raman spectroscopy","characterization|Raman spectroscopy","characterization|Raman spectroscopy","characterization|Raman spectroscopy","characterization","characterization|characterization technique","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization|gas chromatography-mass spectrometry","characterization","characterization|characterization technique","characterization|Nuclear magnetic resonance spectroscopy","characterization|Nuclear magnetic resonance spectroscopy","characterization|Nuclear magnetic resonance spectroscopy","characterization|Nuclear magnetic resonance spectroscopy","characterization|Nuclear magnetic resonance spectroscopy","characterization|Nuclear magnetic resonance spectroscopy","characterization|Nuclear magnetic resonance spectroscopy","characterization|Nuclear magnetic resonance spectroscopy","characterization","characterization|characterization technique","characterization|Transmission electron microscopy","characterization|Transmission electron microscopy","characterization|Transmission electron microscopy","characterization|Transmission electron microscopy","characterization","characterization","characterization|characterization technique","characterization|inductively-coupled plasma atomic emission spectroscopy","characterization|inductively-coupled plasma atomic emission spectroscopy","characterization|inductively-coupled plasma atomic emission spectroscopy","characterization|inductively-coupled plasma atomic emission spectroscopy","characterization","characterization|characterization technique","characterization|scanning electron microscopy","characterization|scanning electron microscopy","characterization|scanning electron microscopy","characterization|scanning electron microscopy","characterization","characterization|characterization technique","characterization|thermogravimetry","characterization|thermogravimetry","characterization|thermogravimetry","characterization|thermogravimetry","characterization|thermogravimetry","characterization|thermogravimetry","characterization|thermogravimetry","characterization","characterization|characterization technique","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization|X-ray photoelectron spectroscopy","characterization","characterization|characterization technique","characterization|Brunnauer-Emmet-Teller","characterization|Brunnauer-Emmet-Teller","characterization|Brunnauer-Emmet-Teller","characterization|Brunnauer-Emmet-Teller","characterization|Brunnauer-Emmet-Teller","characterization","characterization|characterization technique","characterization|Elemental analysis","characterization|Elemental analysis","characterization|Elemental analysis","characterization","characterization|characterization technique","characterization","characterization|ultraviolet-visible spectroscopy","characterization|ultraviolet-visible spectroscopy","characterization|ultraviolet-visible spectroscopy","characterization|ultraviolet-visible spectroscopy","characterization|ultraviolet-visible spectroscopy","characterization","characterization|characterization technique","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization|diffuse reflectance infrared Fourier transform spectroscopy","characterization","characterization|characterization technique","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization|cyclic voltammetry","characterization","characterization|characterization technique","characterization|dynamic light scattering","characterization|dynamic light scattering","characterization|dynamic light scattering","characterization|dynamic light scattering","characterization|dynamic light scattering","characterization|dynamic light scattering","characterization|dynamic light scattering","characterization|dynamic light scattering","characterization","characterization|characterization technique","characterization|electrospray ionisation mass spectrometry","characterization|electrospray ionisation mass spectrometry","characterization|electrospray ionisation mass spectrometry","characterization|electrospray ionisation mass spectrometry","characterization|electrospray ionisation mass spectrometry","characterization|electrospray ionisation mass spectrometry","characterization|electrospray ionisation mass spectrometry","characterization|electrospray ionisation mass spectrometry","characterization|electrospray ionisation mass spectrometry","characterization","characterization","characterization|characterization technique","characterization|photoluminescence spectroscopy","characterization|photoluminescence spectroscopy","characterization|photoluminescence spectroscopy","characterization|photoluminescence spectroscopy","characterization|photoluminescence spectroscopy","characterization|photoluminescence spectroscopy","characterization|photoluminescence spectroscopy","characterization|photoluminescence spectroscopy","characterization","characterization|characterization technique","characterization|Photoluminescence lifetime measurement","characterization|Photoluminescence lifetime measurement","characterization|Photoluminescence lifetime measurement","characterization|Photoluminescence lifetime measurement","characterization|Photoluminescence lifetime measurement","characterization|Photoluminescence lifetime measurement","characterization","characterization|characterization technique","characterization|size-exclusion chromatography","characterization|size-exclusion chromatography","characterization|size-exclusion chromatography","characterization|size-exclusion chromatography","characterization|size-exclusion chromatography","characterization|size-exclusion chromatography","characterization","characterization|characterization technique","characterization|high-performance liquid chromatography mass spectrometry","characterization|high-performance liquid chromatography mass spectrometry","characterization|high-performance liquid chromatography mass spectrometry","characterization|high-performance liquid chromatography mass spectrometry","characterization|high-performance liquid chromatography mass spectrometry","characterization|high-performance liquid chromatography mass spectrometry","characterization|high-performance liquid chromatography mass spectrometry","characterization|high-performance liquid chromatography mass spectrometry","characterization|high-performance liquid chromatography mass spectrometry","characterization","characterization|characterization technique","characterization|single crystal X-ray diffraction","characterization|single crystal X-ray diffraction","characterization","characterization|characterization technique","characterization|energy-dispersive X-ray emission spectroscopy","characterization|energy-dispersive X-ray emission spectroscopy","characterization|energy-dispersive X-ray emission spectroscopy","characterization|energy-dispersive X-ray emission spectroscopy","characterization","characterization|characterization technique","characterization","characterization","characterization","characterization","characterization","characterization|characterization technique","characterization","characterization","characterization","characterization","characterization","characterization|characterization technique","characterization|Conductivity Measurement","characterization|Conductivity Measurement","characterization|Conductivity Measurement","characterization|Conductivity Measurement","characterization|Conductivity Measurement","characterization","characterization","characterization|CO chemisorption","characterization|CO chemisorption","characterization|CO chemisorption","characterization|CO chemisorption","characterization|CO chemisorption"],"type":"sunburst","marker":{"colors":["#4575b4","#abd9e9","#abd9e9","#abd9e9","#4575b4","#4575b4","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#abd9e9","#abd9e9","#74add1","#74add1","#abd9e9","#74add1","#74add1","#74add1","#74add1","#abd9e9","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#abd9e9","#74add1","#abd9e9","#dddddd","#dddddd","#dddddd","#74add1","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#abd9e9","#74add1","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#74add1","#74add1","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#74add1","#74add1","#74add1","#74add1","#abd9e9","#74add1","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#74add1","#74add1","#74add1","#dddddd","#dddddd","#74add1","#74add1","#74add1","#74add1","#74add1","#74add1","#abd9e9","#74add1","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#abd9e9","#74add1","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#dddddd","#74add1","#74add1","#abd9e9","#74add1","#74add1","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#abd9e9","#74add1","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#dddddd","#dddddd","#74add1","#abd9e9","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#74add1","#74add1","#dddddd","#dddddd","#74add1","#74add1","#74add1","#74add1","#dddddd","#dddddd","#74add1","#74add1","#74add1","#abd9e9","#abd9e9","#dddddd","#dddddd","#74add1","#74add1","#abd9e9","#74add1","#74add1"]}}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"legend":{"tracegroupgap":0},"title":{"text":"Characterization Metadata Hierarchy"},"margin":{"t":50,"l":10,"r":10,"b":10},"width":700,"height":700},                        {"responsive": true}                    )                };                            </script>        </div>
+    </details>
+</details>
+<details><summary>reaction</summary>
+<p>The data class 'Reaction' describes the minimum information which should be reported with research data concerning the reaction for which the catalyst is applied and the evaluation of the catalyst's performance.</p>
+<div class='indented-section'>
+<details><summary>Mandatory</summary>
+<details class="nested"><summary>catalyst quantity</summary>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0007018" target="_blank">reactor design type</a></summary>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000193" target="_blank">electrochemical reactor</a></div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007019" target="_blank">continuous stirred tank reactor</a></div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007102" target="_blank">plug flow reactor model</a></div>
+<div class="nested"><a href="http://purl.obolibrary.org/obo/NCIT_C93052" target="_blank">autoclave</a></div>
+<div class="nested">slurry reactor</div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000234" target="_blank">microreactor</a></div>
+<div class="nested">fixed bed reactor</div>
+<details class="nested"><summary>fluidized bed reactor</summary>
+<div class="subnested">gas distributor type</div>
+<div class="subnested">bed expansion height</div>
+<div class="subnested">bubble size distribution</div>
+</details>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000101" target="_blank">reactant</a></summary>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000142" target="_blank">operation parameters</a></summary>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007032" target="_blank">range - reactor temperature</a></div>
+<div class="nested"><a href="future" target="_blank">atmosphere</a></div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000118" target="_blank">experiment pressure</a></div>
+<div class="nested">range - feed composition</div>
+<div class="nested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000111" target="_blank">experiment duration</a></div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000129" target="_blank">product identification method</a></summary>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/CHMO_0000497" target="_blank">gas chromatography-mass spectrometry</a></summary>
+<div class="subnested"><a href="future" target="_blank">external standard</a></div>
+<div class="subnested"><a href="future" target="_blank">internal standard</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0002026" target="_blank">column type</a></div>
+<div class="subnested">Carrier gas</div>
+<div class="subnested">Carrier gas purity</div>
+<div class="subnested">Inlet temperature</div>
+<div class="subnested">Heating procedure</div>
+<div class="subnested">Solvent delay</div>
+<div class="subnested">Trace Ion Detection</div>
+</details>
+<div class="nested">other product identification methods</div>
+<details class="nested"><summary>infrared spectroscopy</summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0000108
+" target="_blank">operation mode</a></div>
+<div class="subnested">Minimum wavenumber</div>
+<div class="subnested">Maximum wavenumber</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0000950" target="_blank">step size</a></div>
+<div class="subnested">temperature</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/process#AFP_0003721" target="_blank">Background correction</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0003051" target="_blank">Number of scans setting</a></div>
+<div class="subnested"><a href="future" target="_blank">Atmosphere</a></div>
+</details>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0000073" target="_blank">Nuclear magnetic resonance spectroscopy</a></summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0007246" target="_blank">solvent</a></div>
+<div class="subnested"><a href="http://nmrML.org/nmrCV#NMR:1400026" target="_blank">irradiation frequency</a></div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">temperature</a></div>
+<div class="subnested"><a href="http://nmrML.org/nmrCV#NMR:1400037" target="_blank">NMR pulse sequence</a></div>
+<div class="subnested"><a href="http://nmrML.org/nmrCV#NMR:1400132" target="_blank">NMR sample tube</a></div>
+<div class="subnested"><a href="http://nmrML.org/nmrCV#NMR:1400087" target="_blank">number of scans</a></div>
+<div class="subnested">atmosphere</div>
+</details>
+</details>
+</details>
+<details><summary>Recommended</summary>
+<details class="nested"><summary><a href="https://w3id.org/nfdi4cat/voc4cat_0007014" target="_blank">catalyst type</a></summary>
+</details>
+</details>
+<details><summary>Optional</summary>
+</details>
 </div>
-```
-
-### Aufgabe 0.3 Test Python ipywidgets
-
-```{} 
-import ipywidgets as W
-from IPython.display import display
-
-wanted = ['2', '4', '3', '9']             # target order
-
-tags = W.TagsInput(
-    value=['2', '3', '4', '9'],           # start scrambled
-    allowed_tags=['2','3','4','9'],        # limit to valid choices
-    allow_duplicates=False,
-    tag_style='info',                     # a bit of colour
-    layout=W.Layout(width='320px')
-)
-
-check  = W.Button(description='Check')
-out    = W.Output()
-
-def validate(_):
-    with out:
-        out.clear_output()
-        print('Your order:', tags.value)
-        print('✅ Correct!') if list(tags.value)==wanted else print('❌ Try again')
-
-check.on_click(validate)
-display(tags, check, out)
-```
-
-### Aufgabe 1
-
-**Szenario:** Sie möchten eine eigene Fallstudie zu studentischen Animationsfilmen der 1990er Jahre durchführen. Beschreiben Sie systematisch Ihr Vorgehen bei der Materialrecherche im OPAC der Filmuniversität.
-
-Ihre Antwort sollte folgende Schritte umfassen:  
-1. Datenbankauswahl 
-2. Zeitraumeingrenzung
-3. Gattungsfilterung
-4. Erste Ergebnisbewertung 
-5. Verfeinerte Suchstrategien
-
-#```{code-cell} ipython3
-```{} 
-:tags: [remove-input]
-import sys
-sys.path.append("../quadriga")
-from assessment import create_answer_box
-
-create_answer_box('Assessment-1')
-```
-
-````{admonition} Musterlösung
-:class: solution, dropdown
-
-**1. Datenbankauswahl:**
-- Auswahl „Erweiterte Suche" auf der OPAC-Startseite
-- Auswahl "Archivkatalog" im Dropdown-Menü „Datenbank"
-
-**2. Zeitraumeingrenzung:**
-- Eingabe "1990->1999" im Jahr-Feld
-- Beachtung der korrekten Pfeil-Syntax
-
-**3. Gattungsfilterung:**
-- Suche nach "Animationsfilm" im Schlagwort-Feld
-- Berücksichtigung der Bibliothekssystematik: "Animationsfilm/F"
-
-**4. Erste Ergebnisbewertung:**
-- Interpretation der Trefferanzahl
-- Mehrfachkatalogisierung reflektieren (Anzahl der Such-Treffer muss nicht der Anzahl der vorhandenen Titel entsprechen)
-- Einschätzung der Materialmenge für die Fragestellung: sind genug Titel im Archiv vorhanden
-
-**5. Verfeinerte Suchstrategien:**
-- Nutzung weiterer Suchfelder (Stichworte, Titel)
-- Kombination verschiedener Suchparameter
-````
-
-### Aufgabe 2
-
-# ```{code-cell} ipython3
-```{} 
-:tags: [remove-input]
-from jupyterquiz import display_quiz
-import sys
-sys.path.append("..")
-from quadriga import colors
-
-multiple_choice1 = [{
-    "question": """Welche Aussagen zur OPAC-Recherche sind korrekt? (Mehrere Antworten möglich)""",
-    "type": "multiple_choice",
-    "answers": [
-        {
-            "answer": "Die Trefferanzahl entspricht immer der exakten Anzahl vorhandener Filme",
-            "correct": False,
-            "feedback": """× Falsch: Die Trefferanzahl umfasst bibliographische Einträge, nicht unbedingt einzelne Filme. Mehrfachkatalogisierung ist möglich."""
-        },
-        {
-            "answer": "Schlagworte folgen einem kontrollierten Vokabular der Bibliothek",
-            "correct": True,
-            "feedback": """✓ Richtig: Schlagworte wie "Dokumentarfilm/B" folgen der festgelegten Systematik der Bibliothek."""
-        },
-        {
-            "answer": "Zeiträume werden mit einfachen Bindestrichen \"-\" eingegeben",
-            "correct": False,
-            "feedback": """× Falsch: Zeiträume werden mit Pfeil-Syntax eingegeben: "1985->1999"."""
-        },
-        {
-            "answer": "Stichworte werden frei vergeben und folgen keiner vorgegebenen Liste",
-            "correct": True,
-            "feedback": """✓ Richtig: Im Unterschied zu Schlagworten werden Stichworte frei vergeben."""
-        },
-        {
-            "answer": "Einzelne Filme können mehrfach katalogisiert sein",
-            "correct": True,
-            "feedback": """✓ Richtig: Filme können als Teil von Kompilationen oder auf verschiedenen Datenträgern mehrfach verzeichnet sein."""
-        },
-        {
-            "answer": "Die Vollanzeige enthält nur technische Informationen",
-            "correct": False,
-            "feedback": """× Falsch: Die Vollanzeige enthält umfassende Informationen: Personen, Gewerke, Projektart, Inhaltsangabe etc."""
-        }
-    ]
-}]
-
-display_quiz(multiple_choice1, colors=colors.jupyterquiz)
-```
-
-### Aufgabe 3
-
-Analysieren Sie anhand des Beispiels von Lotte Reiniger (Dang/Junginger, 2024) die Problematik der vermeintlichen "Neutralität" von Metadaten. Gehen Sie dabei auf folgende Aspekte ein:
-
-1. Subjektivität in der Datenerfassung
-2. Rolle kontrollierter Vokabulare
-3. Historische Kontextualisierung
-
-# ```{code-cell} ipython3
-```{} 
-:tags: [remove-input]
-import sys
-sys.path.append("../quadriga")
-from assessment import create_answer_box
-
-create_answer_box('Assessment_C-3')
-```
-
-````{admonition} Musterlösung
-:class: solution, dropdown
-
-**1. Subjektivität in der Datenerfassung:**
-- Verständnis, dass Metadaten Wertvorstellungen widerspiegeln 
-- Beispiel: Unterschiedliche Berufsbezeichnungen für dieselbe Person
-- Auswirkungen auf sozialen Status und Wahrnehmung
-
-**2. Rolle kontrollierter Vokabulare:**
-- Einfluss vorgegebener Begriffslisten auf Beschreibungen
-- Ausschluss bestimmter Bezeichnungen durch Systemvorgaben
-- Unterschiede zwischen strukturierten Feldern und Freitexten
-
-**3. Historische Kontextualisierung:**
-- Metadaten als historische Quellen verstehen
-- Erfassung dessen, was zu bestimmten Zeiten als relevant galt
-- Notwendigkeit der Kontextualisierung und Reflexion der Entstehungsbedingungen
-````
-
-### Aufgabe 4
-
-A. Erstellung von Visualisierungen zur zeitlichen Verteilung  
-B. Suche nach Stichworten "Grenze", "Mauer", "Grenzübertritt"  
-C. Sichtung ausgewählter Filme zur Vertiefung  
-D. Definition der Suchbegriffe und Synonyme  
-E. Eingrenzung des Grundkorpus (1985-1999)  
-F. Export der Metadaten  
-
-# ```{code-cell} ipython3
-```{} 
-:tags: [remove-input]
-from jupyterquiz import display_quiz
-import sys
-sys.path.append("..")
-from quadriga import colors
-
-multiple_choice2 = [{
-    "question": """Welche Schritte sind für die Bildung eines thematischen Teilkorpus zum Thema "Grenze" notwendig? Bringen Sie die Schritte in die richtige Reihenfolge:""",
-    "type": "multiple_choice",
-    "answers": [
-        {
-            "answer": "E → D → B → F → A → C",
-            "correct": True,
-            "feedback": """✓ Richtig! Die korrekte Reihenfolge ist:
-1. E - Grundkorpus definieren: Zeitliche und institutionelle Eingrenzung
-2. D - Suchbegriffe definieren: Systematische Begriffsfindung zum Themenfeld
-3. B - Suchvorgang: Anwendung der Suchstrategie
-4. F - Datenexport: Strukturierte Datensammlung für die weitere Verarbeitung
-5. A - Visualisierung: Erste quantitative Analyse
-6. C - Qualitative Validierung: Vertiefung und Konkretisierung der Ergebnisse"""
-        },
-        {
-            "answer": "D → E → B → A → F → C",
-            "correct": False,
-            "feedback": """× Falsch: Der Grundkorpus sollte vor der Definition der Suchbegriffe eingegrenzt werden, um den thematischen Rahmen zu bestimmen."""
-        },
-        {
-            "answer": "E → B → D → F → A → C",
-            "correct": False,
-            "feedback": """× Falsch: Die Definition der Suchbegriffe sollte vor der eigentlichen Suche erfolgen, um eine systematische Strategie zu entwickeln."""
-        },
-        {
-            "answer": "B → D → E → F → A → C",
-            "correct": False,
-            "feedback": """× Falsch: Ohne vorherige Eingrenzung des Grundkorpus und Definition der Suchbegriffe wäre die Suche unsystematisch."""
-        }
-    ]
-}]
-
-display_quiz(multiple_choice2, colors=colors.jupyterquiz)
-```
-
-### Aufgabe 5
-
-Vergleichen Sie die Herangehensweise dieser Fallstudie („Studentische Filme der Filmuniversität zur Wendezeit") mit einer hypothetischen Studie zu "Studentischen Filmen während der COVID-19-Pandemie (2020-2022)". Analysieren Sie:
-
-1. Ähnlichkeiten in der Methodik
-2. Unterschiede in den Herausforderungen
-3. Anpassungen der Forschungsfragen
-
-# ```{code-cell} ipython3
-```{} 
-:tags: [remove-input]
-import sys
-sys.path.append("../quadriga")
-from assessment import create_answer_box
-
-create_answer_box('Assessment_C-5')
-```
-
-```{raw} html
-<!-- ░░░  TASK 3 — Rank the numbers (order DOES matter)   ░░░ ----------->
-### Task 3 – Arrange the numbers in the order **2 → 9 → 4 → 3**
-<div class="dnd-exercise" data-answer="2,9,4,3" data-order="true">
-
-  <div class="dnd-box choices">
-    <span class="dnd-item" draggable="true" data-key="9">9</span>
-    <span class="dnd-item" draggable="true" data-key="3">3</span>
-    <span class="dnd-item" draggable="true" data-key="4">4</span>
-    <span class="dnd-item" draggable="true" data-key="2">2</span>
-  </div>
-
-  <div class="dnd-box target"></div>
-
-  <div>
-    <button class="dnd-btn check">Check me</button>
-    <button class="dnd-btn reset">Reset</button>
-  </div>
+<details>
+    <summary><strong>Metadata Hierarchy Chart</strong></summary>
+    <div>                            <div id="d418fe38-18f6-4ff8-a17b-43030691041b" class="plotly-graph-div" style="height:700px; width:700px;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("d418fe38-18f6-4ff8-a17b-43030691041b")) {                    Plotly.newPlot(                        "d418fe38-18f6-4ff8-a17b-43030691041b",                        [{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003elabel=%{label}\u003cbr\u003eparent=%{parent}\u003cbr\u003eid=%{id}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["reaction","catalyst quantity","catalyst type","reactor design type","electrochemical reactor","continuous stirred tank reactor","plug flow reactor model","autoclave","slurry reactor","microreactor","fixed bed reactor","fluidized bed reactor","gas distributor type","bed expansion height","bubble size distribution","","","reactant","","","","","","","","operation parameters","range - reactor temperature","atmosphere","experiment pressure","range - feed composition","experiment duration","","","","product identification method","gas chromatography-mass spectrometry","external standard","internal standard","column type","Carrier gas","Carrier gas purity","Inlet temperature","","other product identification methods","","Heating procedure","","Solvent delay","Trace Ion Detection","","","","","","infrared spectroscopy","operation mode","Minimum wavenumber","Maximum wavenumber","step size","temperature","Background correction","Number of scans setting","Atmosphere","","Nuclear magnetic resonance spectroscopy","solvent","irradiation frequency","temperature","NMR pulse sequence","NMR sample tube","number of scans","atmosphere"],"ids":["reaction","reaction|catalyst quantity","reaction|catalyst type","reaction|reactor design type","reaction|electrochemical reactor","reaction|continuous stirred tank reactor","reaction|plug flow reactor model","reaction|autoclave","reaction|slurry reactor","reaction|microreactor","reaction|fixed bed reactor","reaction|fluidized bed reactor","reaction|gas distributor type","reaction|bed expansion height","reaction|bubble size distribution","reaction|","reaction|","reaction|reactant","reaction|","reaction|","reaction|","reaction|","reaction|","reaction|","reaction|","reaction|operation parameters","reaction|range - reactor temperature","reaction|atmosphere","reaction|experiment pressure","reaction|range - feed composition","reaction|experiment duration","reaction|","reaction|","reaction|","reaction|product identification method","reaction|gas chromatography-mass spectrometry","reaction|external standard","reaction|internal standard","reaction|column type","reaction|Carrier gas","reaction|Carrier gas purity","reaction|Inlet temperature","reaction|","reaction|other product identification methods","reaction|","reaction|Heating procedure","reaction|","reaction|Solvent delay","reaction|Trace Ion Detection","reaction|","reaction|","reaction|","reaction|","reaction|","reaction|infrared spectroscopy","reaction|operation mode","reaction|Minimum wavenumber","reaction|Maximum wavenumber","reaction|step size","reaction|temperature","reaction|Background correction","reaction|Number of scans setting","reaction|Atmosphere","reaction|","reaction|Nuclear magnetic resonance spectroscopy","reaction|solvent","reaction|irradiation frequency","reaction|temperature","reaction|NMR pulse sequence","reaction|NMR sample tube","reaction|number of scans","reaction|atmosphere"],"labels":["reaction","catalyst quantity","catalyst type","reactor design type","electrochemical reactor","continuous stirred tank reactor","plug flow reactor model","autoclave","slurry reactor","microreactor","fixed bed reactor","fluidized bed reactor","gas distributor type","bed expansion height","bubble size distribution","","","reactant","","","","","","","","operation parameters","range - reactor temperature","atmosphere","experiment pressure","range - feed composition","experiment duration","","","","product identification method","gas chromatography-mass spectrometry","external standard","internal standard","column type","Carrier gas","Carrier gas purity","Inlet temperature","","other product identification methods","","Heating procedure","","Solvent delay","Trace Ion Detection","","","","","","infrared spectroscopy","operation mode","Minimum wavenumber","Maximum wavenumber","step size","temperature","Background correction","Number of scans setting","Atmosphere","","Nuclear magnetic resonance spectroscopy","solvent","irradiation frequency","temperature","NMR pulse sequence","NMR sample tube","number of scans","atmosphere"],"name":"","parents":["","reaction","reaction","reaction","reaction|reactor design type","reaction|reactor design type","reaction|reactor design type","reaction|reactor design type","reaction|reactor design type","reaction|reactor design type","reaction|reactor design type","reaction|reactor design type","reaction|fluidized bed reactor","reaction|fluidized bed reactor","reaction|fluidized bed reactor","reaction","reaction","reaction","reaction","reaction","reaction","reaction","reaction","reaction","reaction","reaction","reaction|operation parameters","reaction|operation parameters","reaction|operation parameters","reaction|operation parameters","reaction|operation parameters","reaction","reaction","reaction","reaction","reaction|product identification method","reaction|gas chromatography-mass spectrometry","reaction|gas chromatography-mass spectrometry","reaction|gas chromatography-mass spectrometry","reaction|gas chromatography-mass spectrometry","reaction|gas chromatography-mass spectrometry","reaction|gas chromatography-mass spectrometry","reaction","reaction|product identification method","reaction","reaction|gas chromatography-mass spectrometry","reaction","reaction|gas chromatography-mass spectrometry","reaction|gas chromatography-mass spectrometry","reaction","reaction","reaction","reaction","reaction","reaction|product identification method","reaction|infrared spectroscopy","reaction|infrared spectroscopy","reaction|infrared spectroscopy","reaction|infrared spectroscopy","reaction|infrared spectroscopy","reaction|infrared spectroscopy","reaction|infrared spectroscopy","reaction|infrared spectroscopy","reaction","reaction|product identification method","reaction|Nuclear magnetic resonance spectroscopy","reaction|Nuclear magnetic resonance spectroscopy","reaction|Nuclear magnetic resonance spectroscopy","reaction|Nuclear magnetic resonance spectroscopy","reaction|Nuclear magnetic resonance spectroscopy","reaction|Nuclear magnetic resonance spectroscopy","reaction|Nuclear magnetic resonance spectroscopy"],"type":"sunburst","marker":{"colors":["#1a9850","#1a9850","#66bd63","#1a9850","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#dddddd","#dddddd","#1a9850","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#1a9850","#66bd63","#a6d96a","#a6d96a","#a6d96a","#66bd63","#dddddd","#dddddd","#dddddd","#1a9850","#dddddd","#a6d96a","#a6d96a","#66bd63","#66bd63","#a6d96a","#66bd63","#dddddd","#dddddd","#dddddd","#a6d96a","#dddddd","#a6d96a","#a6d96a","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#dddddd","#66bd63","#a6d96a","#a6d96a","#66bd63","#a6d96a","#a6d96a","#a6d96a","#a6d96a","#dddddd","#dddddd","#66bd63","#66bd63","#66bd63","#a6d96a","#a6d96a","#a6d96a","#a6d96a"]}}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"legend":{"tracegroupgap":0},"title":{"text":"Reaction Metadata Hierarchy"},"margin":{"t":50,"l":10,"r":10,"b":10},"width":700,"height":700},                        {"responsive": true}                    )                };                            </script>        </div>
+    </details>
+</details>
+<details><summary>simulation</summary>
+<p>The data class 'Simulation' describes the minimum information which should be reported with research data for conduction simulations in the field of catalysis to gain theoretical insights.</p>
+<div class='indented-section'>
+<details><summary>Mandatory</summary>
+<details class="nested"><summary>software/package used</summary>
+</details>
+<details class="nested"><summary>simulation method</summary>
+<div class="nested"><a href="http://id.nlm.nih.gov/mesh/D000077318" target="_blank">Density funtional theory</a></div>
+<details class="nested"><summary><a href="http://purl.obolibrary.org/obo/NCIT_C18097" target="_blank">Molecular Dynamics</a></summary>
+<div class="subnested">force field used</div>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/APOLLO_SV_00000012" target="_blank">simulation time step value</a></div>
+<div class="subnested">simulation time</div>
+<div class="subnested">ensemble (e.g. NVT, NPT)</div>
+<div class="subnested">number of atoms</div>
+</details>
+<details class="nested"><summary>microkinetics</summary>
+<div class="subnested"><a href="http://purl.obolibrary.org/obo/NCIT_C94967" target="_blank">rate constants / Arrhenius parameters</a></div>
+<div class="subnested">solver type</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">temperature</a></div>
+<div class="subnested">pressure</div>
+<div class="subnested">surface coverage</div>
+<div class="subnested">activation energy for each step</div>
+</details>
+<details class="nested"><summary>Monte Carlo</summary>
+<div class="subnested">interaction potential used</div>
+<div class="subnested">number of steps</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">temperature</a></div>
+<div class="subnested">lattice size and type</div>
+<div class="subnested">acceptance criteria</div>
+<div class="subnested">equilibration steps</div>
+<div class="subnested">sampling interval</div>
+</details>
+</details>
+<details class="nested"><summary>calculated property</summary>
+<details class="nested"><summary>Thermodynamic stability</summary>
+<div class="subnested">formation energy per atom</div>
+<div class="subnested">reference elemental energies</div>
+<div class="subnested">ebergy above convex hull</div>
+<div class="subnested">phase diagram type (e.g. binary, ternary)</div>
+<div class="subnested">competing phase list</div>
+</details>
+<details class="nested"><summary>Piezoelectricity</summary>
+<div class="subnested">piezoelectric tensor components</div>
+<div class="subnested">crystal symmetry</div>
+<div class="subnested">strain applied</div>
+<div class="subnested">ionic/electronic contributions</div>
+</details>
+<details class="nested"><summary>Elastic constants</summary>
+<div class="subnested">elastic tensor</div>
+<div class="subnested">bulk modulus</div>
+<div class="subnested">shear modulus</div>
+<div class="subnested">Poisson's ratio</div>
+<div class="subnested">Young's modulus</div>
+</details>
+<details class="nested"><summary>Surfaces</summary>
+<div class="subnested">surface energy</div>
+<div class="subnested">Miller indices</div>
+<div class="subnested">slab thickness</div>
+<div class="subnested">vacuum spacing</div>
+<div class="subnested">surface termination method</div>
+</details>
+<details class="nested"><summary>Dielectric tensors</summary>
+<div class="subnested">Material composition</div>
+<div class="subnested"><a href="http://semanticscience.org/resource/SIO_001100" target="_blank">Crystal structure (space group, lattice parameters)</a></div>
+<div class="subnested">Energy cutoff</div>
+<div class="subnested">Convergence criteria</div>
+<div class="subnested">k-point mesh</div>
+</details>
+<details class="nested"><summary>Phonon dispersion</summary>
+<div class="subnested">Material composition</div>
+<div class="subnested"><a href="http://semanticscience.org/resource/SIO_001100" target="_blank">Crystal structure</a></div>
+<div class="subnested">Force constant calculation method</div>
+<div class="subnested">k/q-point mesh for phonons</div>
+<div class="subnested">Smearing/broadening parameter</div>
+<div class="subnested">Imaginary modes present?</div>
+</details>
+<details class="nested"><summary>Equations of state</summary>
+<div class="subnested">Material composition</div>
+<div class="subnested"><a href="http://semanticscience.org/resource/SIO_001100" target="_blank">Crystal structure</a></div>
+<div class="subnested">Fit method (Birch-Murnaghan, Vinet, etc.)</div>
+<div class="subnested">Energy cutoff</div>
+<div class="subnested">k-point mesh</div>
+<div class="subnested">Bulk modulus from fit</div>
+<div class="subnested">Pressure derivative</div>
+<div class="subnested">Residuals of fit</div>
+</details>
+<details class="nested"><summary>Aqueous stability</summary>
+<div class="subnested">Material composition</div>
+<div class="subnested"><a href="http://semanticscience.org/resource/SIO_001100" target="_blank">Crystal structure</a></div>
+<div class="subnested">pH range considered</div>
+<div class="subnested">Potential range considered</div>
+<div class="subnested">Solvation model</div>
+<div class="subnested">Ionic strength</div>
+<div class="subnested"><a href="http://purl.allotrope.org/ontologies/result#AFR_0001584" target="_blank">Temperature</a></div>
+</details>
+<details class="nested"><summary>Grain boundaries</summary>
+<div class="subnested">Material composition</div>
+<div class="subnested">Grain boundary plane</div>
+<div class="subnested">Misorientation angle</div>
+<div class="subnested">Grain boundary energy</div>
+<div class="subnested">Simulation cell size</div>
+<div class="subnested">GB excess volume</div>
+<div class="subnested">GB structural units description</div>
+<div class="subnested">Charge or defect segregation data</div>
+</details>
+<details class="nested"><summary>Electronic structure</summary>
+<div class="subnested">Material composition</div>
+<div class="subnested"><a href="http://semanticscience.org/resource/SIO_001100" target="_blank">Crystal structure</a></div>
+<div class="subnested">k-point mesh</div>
+<div class="subnested">Energy cutoff</div>
+<div class="subnested">Smearing method and width</div>
+<div class="subnested">Spin-polarized?</div>
+<div class="subnested">Band path used</div>
+<div class="subnested">Fermi energy</div>
+</details>
+<details class="nested"><summary>Ferroelectrics</summary>
+<div class="subnested">Material composition</div>
+<div class="subnested"><a href="http://semanticscience.org/resource/SIO_001100" target="_blank">Crystal structure</a></div>
+<div class="subnested">Polarization direction</div>
+<div class="subnested">Spontaneous polarization magnitude</div>
+<div class="subnested">Reference paraelectric structure</div>
+<div class="subnested">Switching barrier</div>
+<div class="subnested">Coercive field</div>
+<div class="subnested">Temperature dependence</div>
+</details>
+<details class="nested"><summary>band_gap (eV)</summary>
+<div class="subnested"><a href="https://w3id.org/nfdi4cat/voc4cat_0005056" target="_blank">Material sample</a></div>
+<div class="subnested">Structure/model</div>
+<div class="subnested">k-point mesh</div>
+<div class="subnested">Smearing/broadening</div>
+<div class="subnested">Direct/indirect</div>
+<div class="subnested">Experimental reference</div>
+<div class="subnested">GW/hybrid correction used?</div>
+<div class="subnested">Excitonic correction</div>
+</details>
+</details>
+</details>
+<details><summary>Recommended</summary>
+</details>
+<details><summary>Optional</summary>
+</details>
 </div>
+<details>
+    <summary><strong>Metadata Hierarchy Chart</strong></summary>
+    <div>                            <div id="c341ac66-a1d2-4740-898c-dbff8a28cfc0" class="plotly-graph-div" style="height:700px; width:700px;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("c341ac66-a1d2-4740-898c-dbff8a28cfc0")) {                    Plotly.newPlot(                        "c341ac66-a1d2-4740-898c-dbff8a28cfc0",                        [{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003elabel=%{label}\u003cbr\u003eparent=%{parent}\u003cbr\u003eid=%{id}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["simulation","software\u002fpackage used","simulation method","Density funtional theory","exchange correlation functional (e.g. PBE, B3LYP)","energy cutoff","convergance critera (e.g. energy, force)","DFT+U paramerters","spin polarization setting","total energy per atom","","Molecular Dynamics","force field used","simulation time step value","simulation time","ensemble (e.g. NVT, NPT)","number of atoms","microkinetics","rate constants \u002f Arrhenius parameters","solver type","temperature","pressure","surface coverage","activation energy for each step","Monte Carlo","interaction potential used","number of steps","temperature","lattice size and type","acceptance criteria","equilibration steps","sampling interval","calculated property","Thermodynamic stability","formation energy per atom","reference elemental energies","ebergy above convex hull","phase diagram type (e.g. binary, ternary)","competing phase list","","Piezoelectricity","piezoelectric tensor components","crystal symmetry","strain applied","ionic\u002felectronic contributions","","Elastic constants","elastic tensor","bulk modulus","shear modulus","Poisson's ratio","Young's modulus","Surfaces","surface energy","Miller indices","slab thickness","vacuum spacing","surface termination method","Dielectric tensors","Material composition","Crystal structure (space group, lattice parameters)","Energy cutoff","Convergence criteria","k-point mesh","Phonon dispersion","Material composition","Crystal structure","Force constant calculation method","k\u002fq-point mesh for phonons","Smearing\u002fbroadening parameter","Imaginary modes present?","Equations of state","Material composition","Crystal structure","Fit method (Birch-Murnaghan, Vinet, etc.)","Energy cutoff","k-point mesh","Bulk modulus from fit","Pressure derivative","Residuals of fit","Aqueous stability","Material composition","Crystal structure","pH range considered","Potential range considered","Solvation model","Ionic strength","Temperature","Grain boundaries","Material composition","Grain boundary plane","Misorientation angle","Grain boundary energy","Simulation cell size","GB excess volume","GB structural units description","Charge or defect segregation data","Electronic structure","Material composition","Crystal structure","k-point mesh","Energy cutoff","Smearing method and width","Spin-polarized?","Band path used","Fermi energy","Ferroelectrics","Material composition","Crystal structure","Polarization direction","Spontaneous polarization magnitude","Reference paraelectric structure","Switching barrier","Coercive field","Temperature dependence","band_gap (eV)","Material sample","Structure\u002fmodel","k-point mesh","Smearing\u002fbroadening","Direct\u002findirect","Experimental reference","GW\u002fhybrid correction used?","Excitonic correction"],"ids":["simulation","simulation|software\u002fpackage used","simulation|simulation method","simulation|Density funtional theory","simulation|exchange correlation functional (e.g. PBE, B3LYP)","simulation|energy cutoff","simulation|convergance critera (e.g. energy, force)","simulation|DFT+U paramerters","simulation|spin polarization setting","simulation|total energy per atom","simulation|","simulation|Molecular Dynamics","simulation|force field used","simulation|simulation time step value","simulation|simulation time","simulation|ensemble (e.g. NVT, NPT)","simulation|number of atoms","simulation|microkinetics","simulation|rate constants \u002f Arrhenius parameters","simulation|solver type","simulation|temperature","simulation|pressure","simulation|surface coverage","simulation|activation energy for each step","simulation|Monte Carlo","simulation|interaction potential used","simulation|number of steps","simulation|temperature","simulation|lattice size and type","simulation|acceptance criteria","simulation|equilibration steps","simulation|sampling interval","simulation|calculated property","simulation|Thermodynamic stability","simulation|formation energy per atom","simulation|reference elemental energies","simulation|ebergy above convex hull","simulation|phase diagram type (e.g. binary, ternary)","simulation|competing phase list","simulation|","simulation|Piezoelectricity","simulation|piezoelectric tensor components","simulation|crystal symmetry","simulation|strain applied","simulation|ionic\u002felectronic contributions","simulation|","simulation|Elastic constants","simulation|elastic tensor","simulation|bulk modulus","simulation|shear modulus","simulation|Poisson's ratio","simulation|Young's modulus","simulation|Surfaces","simulation|surface energy","simulation|Miller indices","simulation|slab thickness","simulation|vacuum spacing","simulation|surface termination method","simulation|Dielectric tensors","simulation|Material composition","simulation|Crystal structure (space group, lattice parameters)","simulation|Energy cutoff","simulation|Convergence criteria","simulation|k-point mesh","simulation|Phonon dispersion","simulation|Material composition","simulation|Crystal structure","simulation|Force constant calculation method","simulation|k\u002fq-point mesh for phonons","simulation|Smearing\u002fbroadening parameter","simulation|Imaginary modes present?","simulation|Equations of state","simulation|Material composition","simulation|Crystal structure","simulation|Fit method (Birch-Murnaghan, Vinet, etc.)","simulation|Energy cutoff","simulation|k-point mesh","simulation|Bulk modulus from fit","simulation|Pressure derivative","simulation|Residuals of fit","simulation|Aqueous stability","simulation|Material composition","simulation|Crystal structure","simulation|pH range considered","simulation|Potential range considered","simulation|Solvation model","simulation|Ionic strength","simulation|Temperature","simulation|Grain boundaries","simulation|Material composition","simulation|Grain boundary plane","simulation|Misorientation angle","simulation|Grain boundary energy","simulation|Simulation cell size","simulation|GB excess volume","simulation|GB structural units description","simulation|Charge or defect segregation data","simulation|Electronic structure","simulation|Material composition","simulation|Crystal structure","simulation|k-point mesh","simulation|Energy cutoff","simulation|Smearing method and width","simulation|Spin-polarized?","simulation|Band path used","simulation|Fermi energy","simulation|Ferroelectrics","simulation|Material composition","simulation|Crystal structure","simulation|Polarization direction","simulation|Spontaneous polarization magnitude","simulation|Reference paraelectric structure","simulation|Switching barrier","simulation|Coercive field","simulation|Temperature dependence","simulation|band_gap (eV)","simulation|Material sample","simulation|Structure\u002fmodel","simulation|k-point mesh","simulation|Smearing\u002fbroadening","simulation|Direct\u002findirect","simulation|Experimental reference","simulation|GW\u002fhybrid correction used?","simulation|Excitonic correction"],"labels":["simulation","software\u002fpackage used","simulation method","Density funtional theory","exchange correlation functional (e.g. PBE, B3LYP)","energy cutoff","convergance critera (e.g. energy, force)","DFT+U paramerters","spin polarization setting","total energy per atom","","Molecular Dynamics","force field used","simulation time step value","simulation time","ensemble (e.g. NVT, NPT)","number of atoms","microkinetics","rate constants \u002f Arrhenius parameters","solver type","temperature","pressure","surface coverage","activation energy for each step","Monte Carlo","interaction potential used","number of steps","temperature","lattice size and type","acceptance criteria","equilibration steps","sampling interval","calculated property","Thermodynamic stability","formation energy per atom","reference elemental energies","ebergy above convex hull","phase diagram type (e.g. binary, ternary)","competing phase list","","Piezoelectricity","piezoelectric tensor components","crystal symmetry","strain applied","ionic\u002felectronic contributions","","Elastic constants","elastic tensor","bulk modulus","shear modulus","Poisson's ratio","Young's modulus","Surfaces","surface energy","Miller indices","slab thickness","vacuum spacing","surface termination method","Dielectric tensors","Material composition","Crystal structure (space group, lattice parameters)","Energy cutoff","Convergence criteria","k-point mesh","Phonon dispersion","Material composition","Crystal structure","Force constant calculation method","k\u002fq-point mesh for phonons","Smearing\u002fbroadening parameter","Imaginary modes present?","Equations of state","Material composition","Crystal structure","Fit method (Birch-Murnaghan, Vinet, etc.)","Energy cutoff","k-point mesh","Bulk modulus from fit","Pressure derivative","Residuals of fit","Aqueous stability","Material composition","Crystal structure","pH range considered","Potential range considered","Solvation model","Ionic strength","Temperature","Grain boundaries","Material composition","Grain boundary plane","Misorientation angle","Grain boundary energy","Simulation cell size","GB excess volume","GB structural units description","Charge or defect segregation data","Electronic structure","Material composition","Crystal structure","k-point mesh","Energy cutoff","Smearing method and width","Spin-polarized?","Band path used","Fermi energy","Ferroelectrics","Material composition","Crystal structure","Polarization direction","Spontaneous polarization magnitude","Reference paraelectric structure","Switching barrier","Coercive field","Temperature dependence","band_gap (eV)","Material sample","Structure\u002fmodel","k-point mesh","Smearing\u002fbroadening","Direct\u002findirect","Experimental reference","GW\u002fhybrid correction used?","Excitonic correction"],"name":"","parents":["","simulation","simulation","simulation|simulation method","simulation","simulation","simulation","simulation","simulation","simulation","simulation","simulation|simulation method","simulation|Molecular Dynamics","simulation|Molecular Dynamics","simulation|Molecular Dynamics","simulation|Molecular Dynamics","simulation|Molecular Dynamics","simulation|simulation method","simulation|microkinetics","simulation|microkinetics","simulation|microkinetics","simulation|microkinetics","simulation|microkinetics","simulation|microkinetics","simulation|simulation method","simulation|Monte Carlo","simulation|Monte Carlo","simulation|Monte Carlo","simulation|Monte Carlo","simulation|Monte Carlo","simulation|Monte Carlo","simulation|Monte Carlo","simulation","simulation|calculated property","simulation|Thermodynamic stability","simulation|Thermodynamic stability","simulation|Thermodynamic stability","simulation|Thermodynamic stability","simulation|Thermodynamic stability","simulation","simulation|calculated property","simulation|Piezoelectricity","simulation|Piezoelectricity","simulation|Piezoelectricity","simulation|Piezoelectricity","simulation","simulation|calculated property","simulation|Elastic constants","simulation|Elastic constants","simulation|Elastic constants","simulation|Elastic constants","simulation|Elastic constants","simulation|calculated property","simulation|Surfaces","simulation|Surfaces","simulation|Surfaces","simulation|Surfaces","simulation|Surfaces","simulation|calculated property","simulation|Dielectric tensors","simulation|Dielectric tensors","simulation|Dielectric tensors","simulation|Dielectric tensors","simulation|Dielectric tensors","simulation|calculated property","simulation|Phonon dispersion","simulation|Phonon dispersion","simulation|Phonon dispersion","simulation|Phonon dispersion","simulation|Phonon dispersion","simulation|Phonon dispersion","simulation|calculated property","simulation|Equations of state","simulation|Equations of state","simulation|Equations of state","simulation|Equations of state","simulation|Equations of state","simulation|Equations of state","simulation|Equations of state","simulation|Equations of state","simulation|calculated property","simulation|Aqueous stability","simulation|Aqueous stability","simulation|Aqueous stability","simulation|Aqueous stability","simulation|Aqueous stability","simulation|Aqueous stability","simulation|Aqueous stability","simulation|calculated property","simulation|Grain boundaries","simulation|Grain boundaries","simulation|Grain boundaries","simulation|Grain boundaries","simulation|Grain boundaries","simulation|Grain boundaries","simulation|Grain boundaries","simulation|Grain boundaries","simulation|calculated property","simulation|Electronic structure","simulation|Electronic structure","simulation|Electronic structure","simulation|Electronic structure","simulation|Electronic structure","simulation|Electronic structure","simulation|Electronic structure","simulation|Electronic structure","simulation|calculated property","simulation|Ferroelectrics","simulation|Ferroelectrics","simulation|Ferroelectrics","simulation|Ferroelectrics","simulation|Ferroelectrics","simulation|Ferroelectrics","simulation|Ferroelectrics","simulation|Ferroelectrics","simulation|calculated property","simulation|band_gap (eV)","simulation|band_gap (eV)","simulation|band_gap (eV)","simulation|band_gap (eV)","simulation|band_gap (eV)","simulation|band_gap (eV)","simulation|band_gap (eV)","simulation|band_gap (eV)"],"type":"sunburst","marker":{"colors":["#984ea3","#984ea3","#984ea3","#dddddd","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#e082ea","#dddddd","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#e082ea","#e082ea","#984ea3","#dddddd","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#dddddd","#dddddd","#b358cb","#b358cb","#e082ea","#e082ea","#dddddd","#dddddd","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#e082ea","#e082ea","#dddddd","#b358cb","#b358cb","#b358cb","#b358cb","#b358cb","#e082ea","#e082ea","#e082ea"]}}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"legend":{"tracegroupgap":0},"title":{"text":"Simulation Metadata Hierarchy"},"margin":{"t":50,"l":10,"r":10,"b":10},"width":700,"height":700},                        {"responsive": true}                    )                };                            </script>        </div>
+    </details>
+</details>
+</body>
+</html>
 ```
-
-````{admonition} Musterlösung
-:class: solution, dropdown
-
-**1. Ähnlichkeiten in der Methodik:**
-- Grundlegende Schritte der Materialrecherche 
-- Bedeutung von Metadaten und deren kritische Reflexion
-- Notwendigkeit der Operationalisierung
-- Kombination quantitativer und qualitativer Ansätze
-
-**2. Unterschiede in den Herausforderungen:**
-- Verfügbarkeit digitaler vs. analoger Materialien
-- Unterschiedliche rechtliche Rahmenbedingungen
-- Temporale Nähe vs. historische Distanz
-- Veränderte Lehrpläne und Produktionsbedingungen
-
-**3. Anpassungen der Forschungsfragen:**
-- Spezifische historische Kontexte (gesellschaftliche Umbrüche vs. Pandemie)
-- Unterschiedliche thematische Schwerpunkte
-````
-
 
