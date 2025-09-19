@@ -1,9 +1,8 @@
 name: Deploy Book
 
 on:
-  workflow_run:
-    branches:
-      - main
+  push:
+    branches: [ "main" ]
 
 jobs:
   deploy-book:
