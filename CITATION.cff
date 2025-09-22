@@ -1,29 +1,14 @@
 # yaml-language-server: $schema=https://citation-file-format.github.io/1.2.0/schema.json
 cff-version: 1.2.0
-title: Fallstudie I - Tabelle. Reproduzierbarkeit von Datenanalysen
-abstract: Dieses interaktive Lehrbuch ist das Outcome der 1. Fallstudie des Datentyps Tabelle des Projekts
-  [QUADRIGA](https://quadriga-dk.de).
+title: Bascat_Metadata_Fields
+abstract: No abstract.
 message: Please cite this software using the metadata from `preferred-citation` in `CITATION.cff`.
 type: software
 authors: &id001
-- given-names: Janaee
-  family-names: Plomine
+- given-names: Yue
+  family-names: Zhang
   orcid: https://orcid.org/0000-0000-0000-0000
   affiliation: Fraunhofer-Institut für Offene Kommunikationssysteme FOKUS
-- given-names: Julianee
-  family-names: Schmelinge
-  orcid: https://orcid.org/0000-0000-0000-0000
-  affiliation: Fraunhofer-Institut für Offene Kommunikationssysteme FOKUS
-- given-names: Antone
-  family-names: Schulzee
-  affiliation: Fraunhofer-Institut für Offene Kommunikationssysteme FOKUS
-- given-names: Paulee
-  family-names: Waltere
-  orcid: https://orcid.org/0000-0000-0000-0000
-  affiliation: Fachhochschule Potsdam
-- given-names: Philipe
-  family-names: Wiemere
-  affiliation: Fachhochschule Potsdam
 identifiers:
 - type: doi
   value: 10.1234/zenodo.12345678
@@ -43,7 +28,7 @@ references:
 preferred-citation:
   year: 2025
   authors: *id001
-  title: Fallstudie I - Tabelle. Reproduzierbarkeit von Datenanalysen
+  title: Bascat_Metadata_Fields
   type: book
   doi: 10.5281/zenodo.14975202
   url: https://github.com/SchenbergZY/Bascat_Metadata_Fields
