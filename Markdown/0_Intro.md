@@ -10,8 +10,6 @@ kernelspec:
   name: python3
 ---
 
-# Task 0
-
 ```{} 
 <iframe src="https://raw.githubusercontent.com/SchenbergZY/BasCat_Metadata_Fields/refs/heads/main/Markdown/metadata_collapsed_charts_all_sheets.html" width="100%" height="600px"></iframe>
 ```
