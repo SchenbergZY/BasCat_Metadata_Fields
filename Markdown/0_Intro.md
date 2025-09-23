@@ -13,6 +13,7 @@ kernelspec:
 ```{} 
 <iframe src="https://raw.githubusercontent.com/SchenbergZY/BasCat_Metadata_Fields/refs/heads/main/Markdown/metadata_collapsed_charts_all_sheets.html" width="100%" height="600px"></iframe>
 ```
+# Metadata Reference Model
 
 ```{raw} html
 <head>
@@ -28,7 +29,6 @@ kernelspec:
   <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 </head>
 <body>
-<h1>Metadata Reference Model</h1>
 <details><summary>cat_core</summary>
 <p>The CatCore describes the minimum information...</p>
 <div class='indented-section'>
