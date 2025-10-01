@@ -58,7 +58,7 @@ body:
   - type: input
     id: allowed_entries
     attributes:
-      label: Numberr of Allowed Entries
+      label: Number of Allowed Entries
     validations:
       required: true
 
