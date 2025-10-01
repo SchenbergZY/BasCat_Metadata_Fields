@@ -1,5 +1,5 @@
 name: Feedback
-description: Use this template to provide feedback on our metadata/ Nutzen Sie diese Vorlage, um Feedback zur unserer Metadata zu geben
+description: Use this template to provide feedback on our metadata / Nutzen Sie diese Vorlage, um Feedback zur unserer Metadata zu geben
 title: "Feedback: "
 labels: ["feedback"]
 assignees: []
@@ -13,46 +13,59 @@ body:
     id: section
     attributes:
       label: Module/Modul
-      description: Which module have you issues?/ Mit welchem Modul hast du Probleme?
+      description: Which module have you issues? / Mit welchem Modul hast du Probleme?
       options:
         - Cat_core
         - Synthesis
         - Characterization
         - Reaction
         - Simulation
-        - Other Terms
     validations:
-      required: false
+      required: true
+
+  - type: input
+    id: label
+    attributes:
+      label: Label
+    validations:
+      required: true
+
+  - type: input
+    id: parents
+    attributes:
+      label: Parent(s)
+    validations:
+      required: true
 
   - type: dropdown
-    id: feedback-type
+    id: mandatory_or_not
     attributes:
-      label: Art des Feedbacks
-      options:
-        - Inhalt & Aufbau
-        - Methodik & Didaktik
-        - Beispiele & Übungen
-        - Technische Aspekte
-        - Praxisrelevanz
-        - Textliche Überarbeitung
-        - Sonstiges
+      label: Mandatory, Recommended, Optional?
+        - Mandatory
+        - Recommended
+        - Optional
+    validations:
+      required: true
+
+  - type: input
+    id: field_type
+    attributes:
+      label: Field Type
+    validations:
+      required: true
+
+  - type: input
+    id: allowed_entries
+    attributes:
+      label: Numberr of Allowed Entries
     validations:
       required: true
 
   - type: textarea
     id: feedback
     attributes:
-      label: Ihr Feedback
-      description: Was möchten Sie uns mitteilen?
+      label: Note
+      description: What would you like to tell us? / Was möchten Sie uns mitteilen?
       placeholder: Bitte beschreiben Sie Ihr Feedback so konkret wie möglich.
     validations:
       required: true
-
-  - type: textarea
-    id: suggestion
-    attributes:
-      label: Verbesserungsvorschlag
-      description: Haben Sie einen konkreten Vorschlag zur Verbesserung?
-      placeholder: Optional - Ihre Ideen für mögliche Verbesserungen
-    validations:
-      required: false
